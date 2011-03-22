@@ -61,10 +61,8 @@ public class SerialComm implements StringListener {
     }
 
     private SerialComm() {
-        com = new SerielleSchnittstelle("/dev/ttyUSB1");
-        com.setBaudRate(115200);
-        com.setStringDelimiter(SerielleSchnittstelle.DELIMITER_LF);
-        com.addStringListener(this);
+        com = new SerielleSchnittstelle("/dev/ttyUSB0");
+        
     }
 
     public void sendCommand(int command, int nodeAddr) {
@@ -90,11 +88,6 @@ public class SerialComm implements StringListener {
         com.disconnect();
     }
 
-    private void CloseNExit(int f) {
-        com.disconnect();
-        System.exit(f);
-    }
-
     public void stringReceived(StringEvent se) {
         strR = se.getStringReceived();
 
@@ -103,10 +96,10 @@ public class SerialComm implements StringListener {
             state = STATE_LISTENING;
         } else if (strR.equals(EODATA)) {
             System.out.println("got command " + EODATA);
-            state = STATE_IDLE;
         } else if (state == STATE_LISTENING) {
-            System.out.println("reveived DATA: " + strR);
+            System.out.println("reveived DATA from node: " + strR);
             addData(strR);
+            state = STATE_IDLE;
         } else {
             System.out.println("from Coord: " + strR);
         }
@@ -118,5 +111,11 @@ public class SerialComm implements StringListener {
 
     private void addData(String strR) {
         dataList.add(strR);
+    }
+    
+    public void connect(){
+        com.setBaudRate(115200);
+        com.setStringDelimiter(SerielleSchnittstelle.DELIMITER_LF);
+        com.addStringListener(this);
     }
 }

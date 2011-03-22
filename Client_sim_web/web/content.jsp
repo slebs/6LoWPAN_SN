@@ -47,6 +47,10 @@
             <p>User is admin</p>
             <%}%>
 
+             <form action="sendCommands.jsp" method="get">
+                <input type="submit" value="Connect RS232" name="connect"/>
+            </form>
+            
             <form action="sendCommands.jsp" method="get">
                 <input type="submit" value="Send getecho" name="getecho"/>
             </form>
@@ -59,9 +63,9 @@
             <form action="sendCommands.jsp" method="get">
                 <input type="submit" value="Disconnect RS232" name="disconnect"/>
             </form>
-
-
-
+            
+           
+           
             <form action="logout.jsp" method="get">
 
                 <input type="submit" value="Logout" name="Logout" />

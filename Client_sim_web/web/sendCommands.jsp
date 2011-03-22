@@ -19,6 +19,8 @@
         SerialComm.getInstance().sendCommand(SerialComm.COMMAND_GETNODES, 1);
     }else if(request.getParameter("disconnect")!=null){
         SerialComm.getInstance().disconnect();
+    }else if(request.getParameter("connect")!=null){
+        SerialComm.getInstance().connect();
     }
     response.sendRedirect("content.jsp");
 %>
