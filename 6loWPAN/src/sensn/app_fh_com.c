@@ -44,17 +44,16 @@ ISR(USART0_RX_vect)
 				< UART_MAXSTRLEN - 1) {
 			uart_string[uart_str_count] = nextChar;
 			uart_str_count++;
-//			printf("---Char received---\n");
+			//			printf("---Char received---\n");
 		} else {
 			uart_string[uart_str_count] = '\0';
 			uart_str_count = 0;
 			uart_str_complete = 1;
-			printf("%s ---  %d\n", uart_string,uart_str_complete);
+			printf("%s ---  %d\n", uart_string, uart_str_complete);
 		}
 	}
 }
 //-------------------------------------------------------------------------------------
-
 
 void fh_com_looptask() {
 
@@ -74,14 +73,15 @@ void fh_com_looptask() {
 		command[19] = 0;
 		paraBuffer[19] = 0;
 
-		sscanf((char*) &uart_string[raute_pos], "%s %s\n", command, paraBuffer);
+		sscanf((char*) &uart_string[raute_pos], "%s %u\n", command, paraBuffer);
 
 		UART_PRINT("command: %s\n", command);
 		UART_PRINT("paraBuffer %s\n", paraBuffer);
 
 		if (strcmp(command, "#getdata") == 0) {
+			send_SN_data_request((uint16_t) paraBuffer);
 			printf("#BOData\n");
-//				send_data_wireless((uint16_t) paraBuffer,"hallo")
+			send_wired_SN_data();
 			printf("bin die daten\n");
 			//TODO Implement Wireless_UART
 			printf("#EOData\n");
@@ -98,3 +98,33 @@ void fh_com_looptask() {
 	}
 
 }
+/*
+ * send data request
+ * coord --> node (addr)
+ */
+void send_SN_data_request(uint16_t addr) {
+	SN_data_frame_t pdata;
+	pdata.command = COMMAND_COORD_DATA_REQUEST;
+	pdata.length = 0;
+
+	send_data_wireless(addr, &pdata, sizeof(SN_data_frame_t),
+			UDP_PORT_SENSN_COORD, UDP_PORT_SENSN_END_ROUTER);
+}
+
+/*
+ * process incoming data request on node
+ * function sends back the sensor data to coord
+ * node --> coord
+ */
+void app_fh_com_process_data_req(uint8_t* pUDPpacket) {
+
+	char* uget_sensor_data();
+	SN_data_frame_t pdata;
+	pdata.command = COMMAND_COORD_DATA_RESPONSE;
+	pdata.payload = *u;
+	pdata.length = sizeof(*u);
+
+	send_data_wireless(DEFAULT_COORD_ADDR, &pdata, sizeof(SN_data_frame_t),
+			UDP_PORT_SENSN_END_ROUTER, UDP_PORT_SENSN_COORD);
+}
+

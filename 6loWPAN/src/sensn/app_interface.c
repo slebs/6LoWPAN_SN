@@ -168,6 +168,10 @@ void process_endnode_udp_packet_SN(uint8_t* pUDPpacket, uint8_t payloadlen,
 			== COMMAND_PING_RESPONSE)) {
 		app_ping_device_process(pUDPpacket, originAddr);
 	} else
+
+	if (*pUDPpacket == COMMAND_COORD_DATA_REQUEST) {
+		app_fh_com_process_data_req(pUDPpacket);
+	} else
 	/*
 	 * Process incoming unknown package and print it as String
 	 */
