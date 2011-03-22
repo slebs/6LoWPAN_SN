@@ -16,7 +16,8 @@ public class DBManager {
     private static Driver jdbcDriver;
     private static String userName = "simon";
     private static String passwd = "123";
-    private static String url = "jdbc:mysql://localhost:3306/login";
+    private static String url = "jdbc:mysql://172.16.99.193:3306/login";
+    //private static String url = "jdbc:mysql://localhost:3306/login";
     private Connection con;
     private Statement stm;
     private ResultSet rs;
@@ -110,7 +111,7 @@ public class DBManager {
             ResultSet r = stm.executeQuery(sql);
 
             if (r.next()) {
-                System.out.println("user is admin");
+                //System.out.println("user is admin");
                 return true;
             }
             System.out.println("user is NOT admin");

@@ -61,8 +61,7 @@ public class SerialComm implements StringListener {
     }
 
     private SerialComm() {
-        com = new SerielleSchnittstelle("/dev/ttyUSB0");
-        
+        com = new SerielleSchnittstelle();
     }
 
     public void sendCommand(int command, int nodeAddr) {
@@ -112,10 +111,27 @@ public class SerialComm implements StringListener {
     private void addData(String strR) {
         dataList.add(strR);
     }
-    
-    public void connect(){
-        com.setBaudRate(115200);
+
+    public void connect(String portName, int baud) {
+        if (com.isConnected()) {
+            com.disconnect();
+        }
+        com = null;
+        com = new SerielleSchnittstelle(portName);
+        com.setBaudRate(baud);
         com.setStringDelimiter(SerielleSchnittstelle.DELIMITER_LF);
         com.addStringListener(this);
+    }
+    public String getPortName(){
+        if(com.isConnected()){
+            return com.getPortName();
+        }
+        return "/dev/ttyUSB0";
+    }
+    public int getBaud(){
+        if(com.isConnected()){
+            return com.getBaudRate();
+        }
+        return 115200;
     }
 }
