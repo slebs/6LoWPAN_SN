@@ -549,7 +549,7 @@ u16 macGetNodeAddr(u64 *macAddr)
 
 
 /**
-   Determine if a given node is a child if this node.
+   Determine if a given node is a child of this node.
 
    @param shortAddr The short address of the node to look up.
 
