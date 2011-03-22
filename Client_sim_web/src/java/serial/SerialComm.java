@@ -7,6 +7,7 @@ package serial;
 import at.htlklu.elektronik.schnittstellen.SerielleSchnittstelle;
 import at.htlklu.elektronik.schnittstellen.StringEvent;
 import at.htlklu.elektronik.schnittstellen.StringListener;
+import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,15 +24,18 @@ public class SerialComm implements StringListener {
     public static final String GETDATA = "#getdata";
     public static final String GETECHO = "#getecho";
     public static final String GETNODES = "#getnodes";
+    public static final String GETCONNECTEDNODE = "#getnodeaddress";
     public static final int COMMAND_GETDATA = 0;
     public static final int COMMAND_GETECHO = 1;
     public static final int COMMAND_GETNODES = 2;
     public static final int COMMAND_CLOSE = 3;
+    public static final int COMMAND_GETCONNECTEDNODE = 4;
     //---------------------------------------------------
     // Commands reveivec from RF-Modul (Coordinator)
     //----------------------------------------------------
     private static final String BODATA = "#BOData";
     private static final String EODATA = "#EOData";
+    private static final String ADDRESS = "#address";
     //---------------------------------------------------
     public static final int STATE_IDLE = 0;
     public static final int STATE_LISTENING = 1;
@@ -76,11 +80,18 @@ public class SerialComm implements StringListener {
                 case COMMAND_GETNODES:
                     sendString_d(GETNODES);
                     break;
+                case COMMAND_GETCONNECTEDNODE:
+                    sendString_d(GETCONNECTEDNODE);
+                    break;
                 default:
                     System.out.println("unkown command");
             }
         } else {
         }
+    }
+
+    public void sendCommand(int command) {
+        sendCommand(command, 0);
     }
 
     public void disconnect() {
@@ -93,15 +104,25 @@ public class SerialComm implements StringListener {
         if (strR.equals(BODATA)) {
             System.out.println("got command " + BODATA);
             state = STATE_LISTENING;
-        } else if (strR.equals(EODATA)) {
+            return;
+        }
+        if (strR.equals(EODATA)) {
             System.out.println("got command " + EODATA);
-        } else if (state == STATE_LISTENING) {
+            return;
+        }
+        if (strR.startsWith(ADDRESS)) {
+            System.out.println("connected node has address: " + strR.split(" ")[1] + "\r\n");
+            return;
+        }
+
+        if (state == STATE_LISTENING) {
             System.out.println("reveived DATA from node: " + strR);
             addData(strR);
             state = STATE_IDLE;
-        } else {
-            System.out.println("from Coord: " + strR);
+            return;
         }
+        System.out.println("from Coord: " + strR);
+
     }
 
     public static SerialComm getInstance() {
@@ -114,22 +135,22 @@ public class SerialComm implements StringListener {
 
     public void connect(String portName, int baud) {
         if (com.isConnected()) {
+            com.removeStringListener(this);
             com.disconnect();
         }
-        com = null;
-        com = new SerielleSchnittstelle(portName);
-        com.setBaudRate(baud);
-        com.setStringDelimiter(SerielleSchnittstelle.DELIMITER_LF);
+        com = new SerielleSchnittstelle(portName, baud, 8, 1, 0);
         com.addStringListener(this);
     }
-    public String getPortName(){
-        if(com.isConnected()){
+
+    public String getPortName() {
+        if (com.isConnected()) {
             return com.getPortName();
         }
         return "/dev/ttyUSB0";
     }
-    public int getBaud(){
-        if(com.isConnected()){
+
+    public int getBaud() {
+        if (com.isConnected()) {
             return com.getBaudRate();
         }
         return 115200;

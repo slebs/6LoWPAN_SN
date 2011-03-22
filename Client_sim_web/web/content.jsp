@@ -57,6 +57,10 @@
             </form>
 
             <form action="sendCommands.jsp" method="get">
+                <input type="submit" value="get connected Nodes address" name="getnodeaddress"/>
+            </form>
+
+            <form action="sendCommands.jsp" method="get">
 
                 <select name="node"> 
                     <option value="1" >1</option>
@@ -67,6 +71,8 @@
                 <input type="submit" value="Send getecho" name="getecho"/>
 
             </form>
+
+
             <form action="sendCommands.jsp" method="get">
                 <select name="node"> 
                     <option value="1" >1</option>
@@ -81,6 +87,7 @@
             <form action="sendCommands.jsp" method="get">
                 <input type="submit" value="Disconnect RS232" name="disconnect"/>
             </form>
+
 
 
 
