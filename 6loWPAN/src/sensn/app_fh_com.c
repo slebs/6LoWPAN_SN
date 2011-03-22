@@ -82,11 +82,9 @@ void fh_com_looptask() {
 
 		if (strcmp(command, "#getdata") == 0) {
 			if (macIsChild(atoi(paraBuffer)) == false) {
-				UART_PRINT("Node nicht im Netzwerk");
+				UART_PRINT("Node nicht im Netzwerk\r\n");
 			} else {
 				send_SN_data_request(atoi(paraBuffer));
-				printf("#BOData\n");
-
 			}
 		}
 
@@ -118,7 +116,7 @@ void send_SN_data_request(uint16_t addr) {
 /*
  * process incoming data request on node
  * function sends back the sensor data to coord
- * node --> coord
+ * node --> coord#
  */
 void app_fh_com_process_data_req(uint8_t* pUDPpacket) {
 	int i = 0;
@@ -143,6 +141,6 @@ void app_fh_com_process_data_res(uint8_t* pUDPpacket) {
 	SN_data_frame_t * frame = (SN_data_frame_t *) pUDPpacket;
 	payload = frame->payload;
 	payload[frame->length] = '\0';
-	printf("#BOData\n%s\nEOData\n", payload);
+	printf("#BOData\n%s\n#EOData\n", payload);
 }
 
