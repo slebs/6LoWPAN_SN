@@ -13,22 +13,19 @@
 #define MAX_FRAME_LENGTH_SN			(79)
 /** Maximum available frame payload*/
 #define MAX_PAYLOAD_LENGTH_SN     (MAX_FRAME_LENGTH_SN - 2) //(Length - (command + option))
-
 /*
  * Struct defined as data frame for sensor network application
  */
 typedef struct {
-	uint8_t command; 							///< defines the command, which selects the service
-	uint8_t length;								///< defines the payload length
-	uint8_t payload[MAX_PAYLOAD_LENGTH_SN]; 	///< payload, depends on command
+	uint8_t command; ///< defines the command, which selects the service
+	uint8_t length; ///< defines the payload length
+	char payload[MAX_PAYLOAD_LENGTH_SN]; ///< payload, depends on command
 }__attribute__((packed)) SN_data_frame_t;
-
 
 // Define LEDs with speaking names
 #define LED_ALIVE (RCB_LED_2)		// LED green
 #define LED_ASSOCIATED (RCB_LED_1)	// LED yellow
 #define LED_WORKING (RCB_LED_0)		// LED red
-
 /*
  * Application UDP port definitions
  * ports.
@@ -40,12 +37,10 @@ typedef struct {
 
 /** Maximum frame length for app_perf*/
 #define MAX_PERFTEST_FRAME_LENGTH         (86) // does not work (max 79)
-
 /*
  * Application FH-Interface
  */
 #define UART_MAXSTRLEN		(256)
-
 
 // LoopTask
 void loopTask(void);
@@ -64,6 +59,8 @@ void send_test_data();
 void ping_button_ev();
 void app_ping_device_process(uint8_t* pUDPpacket, int16_t originAddr);
 void app_ping_coord_process(uint8_t* pUDPpacket, int16_t originAddr);
+void send_SN_data_wireless(uint16_t destAddr, uint8_t* pData, uint8_t len,
+		uint16_t srcUDPPort, uint16_t destUDPPort);
 
 //functions for APP_PERF
 void perf_init();
@@ -74,6 +71,12 @@ void compare_test_data(uint8_t* pUDPpacket, uint8_t payloadlen);
 
 //functions for APP_FH_COM
 void fh_com_looptask();
+void send_SN_data_request(uint16_t addr);
+void app_fh_com_process_data_res(uint8_t* pUDPpacket);
+void app_fh_com_process_data_req(uint8_t* pUDPpacket);
+
+//functions for twi_interface
+char* get_sensor_data();
 
 //functions for sensornetwork
 /*

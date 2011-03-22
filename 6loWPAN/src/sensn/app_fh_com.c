@@ -49,7 +49,7 @@ ISR(USART0_RX_vect)
 			uart_string[uart_str_count] = '\0';
 			uart_str_count = 0;
 			uart_str_complete = 1;
-			printf("%s ---  %d\n", uart_string, uart_str_complete);
+			// UART_PRINT("%s ---  %d\n", uart_string, uart_str_complete);
 		}
 	}
 }
@@ -73,16 +73,15 @@ void fh_com_looptask() {
 		command[19] = 0;
 		paraBuffer[19] = 0;
 
-		sscanf((char*) &uart_string[raute_pos], "%s %u\n", command, paraBuffer);
+		sscanf((char*) &uart_string[raute_pos], "%s %s\n", command, paraBuffer);
 
 		UART_PRINT("command: %s\n", command);
 		UART_PRINT("paraBuffer %s\n", paraBuffer);
 
 		if (strcmp(command, "#getdata") == 0) {
-			send_SN_data_request((uint16_t) paraBuffer);
+			send_SN_data_request(atoi(paraBuffer));
 			printf("#BOData\n");
-			send_wired_SN_data();
-			printf("bin die daten\n");
+
 			//TODO Implement Wireless_UART
 			printf("#EOData\n");
 		}
@@ -103,11 +102,12 @@ void fh_com_looptask() {
  * coord --> node (addr)
  */
 void send_SN_data_request(uint16_t addr) {
+	UART_PRINT("send_data_frame to %d", addr);
 	SN_data_frame_t pdata;
 	pdata.command = COMMAND_COORD_DATA_REQUEST;
 	pdata.length = 0;
 
-	send_data_wireless(addr, &pdata, sizeof(SN_data_frame_t),
+	send_SN_data_wireless(addr, (uint8_t *) &pdata, sizeof(SN_data_frame_t),
 			UDP_PORT_SENSN_COORD, UDP_PORT_SENSN_END_ROUTER);
 }
 
@@ -117,14 +117,28 @@ void send_SN_data_request(uint16_t addr) {
  * node --> coord
  */
 void app_fh_com_process_data_req(uint8_t* pUDPpacket) {
-
-	char* uget_sensor_data();
+	int i = 0;
+	UART_PRINT("NODE: got data request");
+	char* u = get_sensor_data();
 	SN_data_frame_t pdata;
 	pdata.command = COMMAND_COORD_DATA_RESPONSE;
-	pdata.payload = *u;
+	//pdata.payload = (uint8_t *) u;
+	for (i = 0; i < strlen(u); i++) {
+		pdata.payload[i] = u[i];
+		UART_PRINT("%c",u[i]);
+	}
 	pdata.length = sizeof(*u);
 
-	send_data_wireless(DEFAULT_COORD_ADDR, &pdata, sizeof(SN_data_frame_t),
-			UDP_PORT_SENSN_END_ROUTER, UDP_PORT_SENSN_COORD);
+	send_SN_data_wireless(DEFAULT_COORD_ADDR, (uint8_t *) &pdata,
+			sizeof(SN_data_frame_t), UDP_PORT_SENSN_END_ROUTER,
+			UDP_PORT_SENSN_COORD);
+}
+
+void app_fh_com_process_data_res(uint8_t* pUDPpacket) {
+	UART_PRINT("COORD: got data response");
+	SN_data_frame_t * frame = (SN_data_frame_t *) pUDPpacket;
+	char * payload;
+	payload = frame->payload;
+
 }
 

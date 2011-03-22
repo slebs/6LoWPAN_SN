@@ -49,10 +49,8 @@ void ping_button_ev() {
 void sendPing() {
 	// Setup a Ping Request packet to be send to the destination address
 	deRFprotocol_t frame;
-	payloadPingFrame_t* pingFrame = (payloadPingFrame_t*) &frame.payload;
 	frame.command = COMMAND_PING_REQUEST;
 	frame.option = NO_OPTION;
-	pingFrame->mac = macConfig.longAddr;
 
 	if (NODETYPE == COORD) {
 		pingdelay = macGetTime();
@@ -108,10 +106,8 @@ void app_ping_device_process(uint8_t* pUDPpacket, int16_t originAddr) {
 
 		//setup response frame TODO response with a modified frame not a new one
 		deRFprotocol_t frame;
-		payloadPingFrame_t* pingFrame = (payloadPingFrame_t*) &frame.payload;
 		frame.command = COMMAND_PING_RESPONSE;
 		frame.option = NO_OPTION;
-		pingFrame->mac = macConfig.longAddr;
 
 		// send ping response to origin device/node
 		send_data_wireless(originAddr, (uint8_t *) &frame,

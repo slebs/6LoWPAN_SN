@@ -140,6 +140,8 @@ void process_coord_udp_packet_SN(uint8_t* pUDPpacket, uint8_t payloadlen,
 	if ((*pUDPpacket == COMMAND_PING_REQUEST) || (*pUDPpacket
 			== COMMAND_PING_RESPONSE)) {
 		app_ping_coord_process(pUDPpacket, originAddr);
+	} else if (*pUDPpacket == COMMAND_COORD_DATA_RESPONSE) {
+		app_fh_com_process_data_res(pUDPpacket);
 	} else {
 
 #ifdef APP_PERF
@@ -192,7 +194,7 @@ void process_endnode_udp_packet_SN(uint8_t* pUDPpacket, uint8_t payloadlen,
  * @param   srcUDPPort  UDP port of source node
  * @param   destUDPPort UDP port of destination node
  */
-void send_data_wireless(uint16_t destAddr, uint8_t* pData, uint8_t len,
+void send_SN_data_wireless(uint16_t destAddr, uint8_t* pData, uint8_t len,
 		uint16_t srcUDPPort, uint16_t destUDPPort) {
 	sixlowpan_hc01_udp_setup_iplocal(destAddr);
 	sixlowpan_hc01_udp_setup_ports(srcUDPPort, destUDPPort);
