@@ -89,13 +89,22 @@ void fh_com_looptask() {
 		}
 
 		if (strcmp(command, "#getecho") == 0) {
-			//TODO Implement PING
+
+			if (macIsChild(atoi(paraBuffer)) == false) {
+							UART_PRINT("Node nicht im Netzwerk\r\n");
+						} else {
+							uint16_t addr = atoi(paraBuffer);
+							sendPing(addr,4);
+						}
 		}
 
 		if (strcmp(command, "#getnodes") == 0) {
 			//TODO Implement
 		}
 
+		if (strcmp(command, "#getnodeaddress") == 0) {
+					printf("#address %d\n",macConfig.shortAddress);
+				}
 	}
 
 }

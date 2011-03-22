@@ -22,10 +22,14 @@
 
 u16 pingdelay = 0;
 uint16_t dest_addr_ping;
+uint16_t iterations;
 u8 cvar = 0;
 u8 utimer;
 bool do_ = false;
 
+/*
+ * starts/stops infinity ping
+ */
 void ping_button_ev() {
 	if (do_ == true) {
 		do_ = false;
@@ -34,19 +38,25 @@ void ping_button_ev() {
 	} else {
 		do_ = true;
 		if (NODETYPE == COORD) {
-			dest_addr_ping = DEFAULT_FIRST_NODE_ADDR;
+
+			sendPing(DEFAULT_FIRST_NODE_ADDR, 0);
 		} else {
-			dest_addr_ping = DEFAULT_COORD_ADDR;
+			sendPing(DEFAULT_COORD_ADDR, 0);
 		}
-		sendPing();
 	}
+}
+
+void pingMacro() {
+	sendPing(dest_addr_ping, iterations);
 }
 
 /*
  * function sends a periodic ping request over UDP to the dest_addr_ping
- * @param dest_addr Address the ping request to be sent
+ * @param dest_addr_ping Address the ping request is sent
  */
-void sendPing() {
+void sendPing(uint16_t dest, uint16_t iter) {
+	dest_addr_ping = dest;
+	iterations = iter;
 	// Setup a Ping Request packet to be send to the destination address
 	deRFprotocol_t frame;
 	frame.command = COMMAND_PING_REQUEST;
@@ -54,23 +64,25 @@ void sendPing() {
 
 	if (NODETYPE == COORD) {
 		pingdelay = macGetTime();
-		send_data_wireless(dest_addr_ping, (uint8_t *) &frame,
-				sizeof(deRFprotocol_t), UDP_PORT_SENSN_COORD,
-				UDP_PORT_SENSN_END_ROUTER);
+		send_data_wireless(dest, (uint8_t *) &frame, sizeof(deRFprotocol_t),
+				UDP_PORT_SENSN_COORD, UDP_PORT_SENSN_END_ROUTER);
 	}
 
 	if (NODETYPE == ENDDEVICE || NODETYPE == ROUTER) {
 		pingdelay = macGetTime();
-		send_data_wireless(dest_addr_ping, (uint8_t *) &frame,
-				sizeof(deRFprotocol_t), UDP_PORT_SENSN_END_ROUTER,
-				UDP_PORT_SENSN_COORD);
-		UART_PRINT("Send Ping Request to 0x%u \r\n", dest_addr_ping);
+		send_data_wireless(dest, (uint8_t *) &frame, sizeof(deRFprotocol_t),
+				UDP_PORT_SENSN_END_ROUTER, UDP_PORT_SENSN_COORD);
+		UART_PRINT("Send Ping Request to 0x%u \r\n", dest);
 	}
 	// cvar repeats
-	if (cvar < 4) { // limit number of pings by ++ cvar
-		utimer = macSetAlarm(500, sendPing);
+	if (iter == 0) {
+		utimer = macSetAlarm(500, pingMacro);
 	} else {
-		cvar = 0;
+		if (++cvar < iter) {
+			utimer = macSetAlarm(500, pingMacro);
+		} else {
+			cvar = 0;
+		}
 	}
 }
 

@@ -54,7 +54,8 @@ void process_coord_udp_packet_SN(uint8_t* pUDPpacket, uint8_t payloadlen,
 		uint16_t originAddr);
 
 // functions for APP_PING
-void sendPing();
+void pingMacro();
+void sendPing(uint16_t dest_addr_ping, uint16_t iter);
 void send_test_data();
 void ping_button_ev();
 void app_ping_device_process(uint8_t* pUDPpacket, int16_t originAddr);
