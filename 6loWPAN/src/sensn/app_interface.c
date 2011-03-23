@@ -154,8 +154,8 @@ void process_coord_udp_packet_SN(uint8_t* pUDPpacket, uint8_t payloadlen,
 	}
 }
 
-// TODO Implement behavior on incoming UDP packets for the Endnode
-/*
+/* Implements behavior on incoming UDP packets for Endnodes/Routers
+ *
  * param: pUDPpacket pointer zur payload
  * param: payloadlen
  * param: address packet originates from

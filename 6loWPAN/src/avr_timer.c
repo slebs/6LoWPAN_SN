@@ -38,11 +38,10 @@
 #include "../inc/avr_timer.h"
 #include "../inc/system.h"
 
-/*
-#if IPV6LOWPAN
-#include "sixlowpan_wake.h"
-#endif
-*/
+
+//#if IPV6LOWPAN
+//#include "../sixlowpan_wake.h"
+//#endif
 
 /**
    @addtogroup timer_module
