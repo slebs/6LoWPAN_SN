@@ -127,6 +127,7 @@ public class SerialComm implements StringListener {
             dataString.add("Ping took: " + strR.split(" ")[1] + "ms\r\n");
             return;
         }
+        System.out.println(strR);
     }
 
     public static SerialComm getInstance() {
@@ -157,7 +158,7 @@ public class SerialComm implements StringListener {
         ListIterator<String> iter = dataString.listIterator();
         StringBuilder s = new StringBuilder();
         while (iter.hasNext()) {
-            s.append("\r\n" + iter.next());
+            s.append("\r\n").append(iter.next());
         }
         return s.toString();
     }
