@@ -58,7 +58,7 @@
                         for (int i = 0; i < ports.size(); i++) {
                             out.println("<option value=\"" + ports.get(i) + "\">" + ports.get(i) + "</option>");
                         }
-                    %>
+                    %><option value="/dev/ttyACM0">Arduino Uno</option>
                 </select>
                 <select name="baud"> 
                     <option value="<% out.print(SerialComm.getInstance().getBaud());%>"><% out.print(SerialComm.getInstance().getBaud());%></option>
