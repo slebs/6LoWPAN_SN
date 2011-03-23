@@ -94,7 +94,7 @@ void fh_com_looptask() {
 				UART_PRINT("Node nicht im Netzwerk\r\n");
 			} else {
 				uint16_t addr = atoi(paraBuffer);
-				sendPing(addr, 4);
+				sendPing(addr, 1);
 			}
 		}
 

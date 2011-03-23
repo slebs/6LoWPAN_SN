@@ -93,10 +93,6 @@ int main(void) {
 	bmm_buffer_init();
 
 	// switch off LED's
-#ifndef RCB_BREAKOUT
-	led_set(PLATFORM_STB, STB_LED_0, PLATFORM_LED_OFF);
-	led_set(PLATFORM_STB, STB_LED_1, PLATFORM_LED_OFF);
-#endif
 	led_set(PLATFORM_RCB, RCB_LED_0, PLATFORM_LED_OFF);
 	led_set(PLATFORM_RCB, RCB_LED_1, PLATFORM_LED_OFF);
 	led_set(PLATFORM_RCB, RCB_LED_2, PLATFORM_LED_OFF);
@@ -106,7 +102,9 @@ int main(void) {
 
 #if defined(UART_DEBUG) || defined(COMMUNICATION_UART)
 	//uart_init(38400);  // init UART hardware (other possible values: 9600, 115200)
-	uart_init(115200); // init UART hardware (other possible values: 9600, 115200)
+	//uart_init(115200); // init UART hardware (other possible values: 9600, 115200)
+	uart_init(9600); // init UART hardware (other possible values: 9600, 115200)
+
 #endif
 
 	// init HDLC layer (frame tagging)
