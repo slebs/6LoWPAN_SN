@@ -9,6 +9,8 @@ import at.htlklu.elektronik.schnittstellen.StringEvent;
 import at.htlklu.elektronik.schnittstellen.StringListener;
 import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +19,7 @@ import java.util.logging.Logger;
  * @author simon
  */
 public class SerialComm implements StringListener {
-
+    
     private static final SerialComm instance = new SerialComm();
     // Commands to be send to RF-Modul (Coordinator)
     //----------------------------------------------------
@@ -39,10 +41,10 @@ public class SerialComm implements StringListener {
     //---------------------------------------------------
     public static final int STATE_IDLE = 0;
     public static final int STATE_LISTENING = 1;
-    SerielleSchnittstelle com;
-    String strR;
-    int state;
-    ArrayList<String> dataList = new ArrayList<String>();
+    private SerielleSchnittstelle com;
+    private String strR;
+    private int state;
+    private ArrayList<String> dataString = new ArrayList<String>();
 
     /*
      * sends the String with a delay between every charackter
@@ -63,11 +65,11 @@ public class SerialComm implements StringListener {
             Logger.getLogger(SerialComm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private SerialComm() {
         com = new SerielleSchnittstelle();
     }
-
+    
     public void sendCommand(int command, int nodeAddr) {
         if (com.isConnected()) {
             switch (command) {
@@ -89,50 +91,45 @@ public class SerialComm implements StringListener {
         } else {
         }
     }
-
+    
     public void sendCommand(int command) {
         sendCommand(command, 0);
     }
-
+    
     public void disconnect() {
         com.disconnect();
     }
-
+    
     public void stringReceived(StringEvent se) {
         strR = se.getStringReceived();
-
+        
         if (strR.equals(BODATA)) {
-            System.out.println("got command " + BODATA);
+            dataString.add("got command " + BODATA);
             state = STATE_LISTENING;
             return;
         }
         if (strR.equals(EODATA)) {
-            System.out.println("got command " + EODATA);
+            dataString.add("got command " + EODATA);
             return;
         }
         if (strR.startsWith(ADDRESS)) {
-            System.out.println("connected node has address: " + strR.split(" ")[1] + "\r\n");
+            dataString.add("connected node has address: " + strR.split(" ")[1] + "\r\n");
             return;
         }
-
+        
         if (state == STATE_LISTENING) {
-            System.out.println("reveived DATA from node: " + strR);
-            addData(strR);
+            dataString.add("reveived DATA from node: " + strR);
             state = STATE_IDLE;
             return;
         }
-        System.out.println("from Coord: " + strR);
-
+        dataString.add("from Coord: " + strR);
+        
     }
-
+    
     public static SerialComm getInstance() {
         return instance;
     }
-
-    private void addData(String strR) {
-        dataList.add(strR);
-    }
-
+    
     public void connect(String portName, int baud) {
         if (com.isConnected()) {
             com.removeStringListener(this);
@@ -141,18 +138,28 @@ public class SerialComm implements StringListener {
         com = new SerielleSchnittstelle(portName, baud, 8, 1, 0);
         com.addStringListener(this);
     }
-
-    public String getPortName() {
-        if (com.isConnected()) {
-            return com.getPortName();
-        }
-        return "/dev/ttyUSB0";
+    
+    public ArrayList<String> getPortNames() {
+        return SerielleSchnittstelle.listPorts();
     }
-
+    
     public int getBaud() {
         if (com.isConnected()) {
             return com.getBaudRate();
         }
         return 115200;
+    }
+    
+    public String getConsoleOutput() {
+        ListIterator<String> iter = dataString.listIterator();
+        StringBuilder s = new StringBuilder();
+        while (iter.hasNext()) {
+            s.append("\r\n" + iter.next());
+        }
+        return s.toString();
+    }
+    
+    public void setDataString(String s) {
+        dataString.clear();
     }
 }

@@ -3,6 +3,7 @@
     Created on : Dec 16, 2010, 3:49:29 PM
     Author     : simon
 --%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="serial.SerialComm"%>
 <%@page import="java.util.Map.Entry"%>
 <%@page import="jdbc.DBManager"%>
@@ -10,6 +11,7 @@
 
 <%@page import="java.util.TreeMap"%>
 <%
+    int MAXNODES = 100;
     String benutzerName = (String) session.getAttribute("benutzer");
     if (benutzerName == null) {
         response.sendRedirect("login.jsp");
@@ -48,12 +50,21 @@
             <%}%>
 
             <form action="sendCommands.jsp" method="get">
-                <input name="port" type="text" maxlength="255" value="<% out.print(SerialComm.getInstance().getPortName());%>"/> 
+                <select name="port">
+
+                    <%
+                        ArrayList<String> ports = SerialComm.getInstance().getPortNames();
+
+                        for (int i = 0; i < ports.size(); i++) {
+                            out.println("<option value=\"" + ports.get(i) + "\">" + ports.get(i) + "</option>");
+                        }
+                    %>
+                </select>
                 <select name="baud"> 
                     <option value="<% out.print(SerialComm.getInstance().getBaud());%>"><% out.print(SerialComm.getInstance().getBaud());%></option>
                     <option value="9600" >9600</option>
                 </select>
-                <input type="submit" value="Connect RS232" name="connect"/>
+                <input type="submit" value="Connect UART" name="connect"/>
             </form>
 
             <form action="sendCommands.jsp" method="get">
@@ -63,21 +74,21 @@
             <form action="sendCommands.jsp" method="get">
 
                 <select name="node"> 
-                    <option value="1" >1</option>
-                    <option value="2" >2</option>
-                    <option value="3" >3</option>
+                    <%for (int i = 1; i <= MAXNODES; i++) {
+                            out.println("<option value=" + i + " >" + i + "</option>");
+                        }%>
+
                 </select>
 
                 <input type="submit" value="Send getecho" name="getecho"/>
 
             </form>
 
-
             <form action="sendCommands.jsp" method="get">
                 <select name="node"> 
-                    <option value="1" >1</option>
-                    <option value="2" >2</option>
-                    <option value="3" >3</option>
+                    <%for (int i = 1; i <= MAXNODES; i++) {
+                            out.println("<option value=" + i + " >" + i + "</option>");
+                        }%>
                 </select>
                 <input type="submit" value="Send getdata" name="getdata"/>
             </form>
@@ -85,14 +96,17 @@
                 <input type="submit" value="Send getnodes" name="getnodes"/>
             </form>
             <form action="sendCommands.jsp" method="get">
-                <input type="submit" value="Disconnect RS232" name="disconnect"/>
+                <input type="submit" value="Disconnect UART" name="disconnect"/>
             </form>
 
-                    <textarea rows="2" cols="20" readonly="true">
-At W3Schools you will find all the Web-building tutorials you need, from basic HTML to advanced XML, SQL, ASP, and PHP.
+            <textarea rows="25" cols="80">
+                <% out.println(SerialComm.getInstance().getConsoleOutput());%>
             </textarea>
+            <form action="sendCommands.jsp" method="get">
+                <input type="submit" value="clear" name="clear"/>
+                <input type="submit" value="refresh" name="refresh" />
+            </form>
             <form action="logout.jsp" method="get">
-
                 <input type="submit" value="Logout" name="Logout" />
             </form>
         </div>
