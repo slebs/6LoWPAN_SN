@@ -14,7 +14,6 @@
         // SerialComm.getInstance().disconnect();
     } else if (request.getParameter("getecho") != null) {
         sc.sendCommand(SerialComm.COMMAND_GETECHO, Integer.parseInt(request.getParameter("node")));
-        Thread.sleep(100);
     } else if (request.getParameter("getnodes") != null) {
         sc.sendCommand(SerialComm.COMMAND_GETNODES);
     } else if (request.getParameter("disconnect") != null) {
