@@ -7,9 +7,7 @@ package serial;
 import at.htlklu.elektronik.schnittstellen.SerielleSchnittstelle;
 import at.htlklu.elektronik.schnittstellen.StringEvent;
 import at.htlklu.elektronik.schnittstellen.StringListener;
-import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +17,7 @@ import java.util.logging.Logger;
  * @author simon
  */
 public class SerialComm implements StringListener {
-    
+
     private static final SerialComm instance = new SerialComm();
     // Commands to be send to RF-Modul (Coordinator)
     //----------------------------------------------------
@@ -33,11 +31,12 @@ public class SerialComm implements StringListener {
     public static final int COMMAND_CLOSE = 3;
     public static final int COMMAND_GETCONNECTEDNODE = 4;
     //---------------------------------------------------
-    // Commands reveivec from RF-Modul (Coordinator)
+    // Commands reveived from RF-Modul (Coordinator)
     //----------------------------------------------------
     private static final String BODATA = "#BOData";
     private static final String EODATA = "#EOData";
     private static final String ADDRESS = "#address";
+    private static final String ECHORESPONSE = "#pingresponse";
     //---------------------------------------------------
     public static final int STATE_IDLE = 0;
     public static final int STATE_LISTENING = 1;
@@ -45,6 +44,7 @@ public class SerialComm implements StringListener {
     private String strR;
     private int state;
     private ArrayList<String> dataString = new ArrayList<String>();
+
 
     /*
      * sends the String with a delay between every charackter
@@ -65,11 +65,11 @@ public class SerialComm implements StringListener {
             Logger.getLogger(SerialComm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private SerialComm() {
         com = new SerielleSchnittstelle();
     }
-    
+
     public void sendCommand(int command, int nodeAddr) {
         if (com.isConnected()) {
             switch (command) {
@@ -91,18 +91,18 @@ public class SerialComm implements StringListener {
         } else {
         }
     }
-    
+
     public void sendCommand(int command) {
         sendCommand(command, 0);
     }
-    
+
     public void disconnect() {
         com.disconnect();
     }
-    
+
     public void stringReceived(StringEvent se) {
         strR = se.getStringReceived();
-        
+
         if (strR.equals(BODATA)) {
             dataString.add("got command " + BODATA);
             state = STATE_LISTENING;
@@ -116,20 +116,23 @@ public class SerialComm implements StringListener {
             dataString.add("connected node has address: " + strR.split(" ")[1] + "\r\n");
             return;
         }
-        
+
         if (state == STATE_LISTENING) {
             dataString.add("reveived DATA from node: " + strR);
             state = STATE_IDLE;
             return;
         }
-        dataString.add("from Coord: " + strR);
-        
+
+        if (strR.startsWith(ECHORESPONSE)) {
+            dataString.add("Ping took: " + strR.split(" ")[1] + "ms\r\n");
+            return;
+        }
     }
-    
+
     public static SerialComm getInstance() {
         return instance;
     }
-    
+
     public void connect(String portName, int baud) {
         if (com.isConnected()) {
             com.removeStringListener(this);
@@ -138,18 +141,18 @@ public class SerialComm implements StringListener {
         com = new SerielleSchnittstelle(portName, baud, 8, 1, 0);
         com.addStringListener(this);
     }
-    
+
     public ArrayList<String> getPortNames() {
         return SerielleSchnittstelle.listPorts();
     }
-    
+
     public int getBaud() {
         if (com.isConnected()) {
             return com.getBaudRate();
         }
         return 115200;
     }
-    
+
     public String getConsoleOutput() {
         ListIterator<String> iter = dataString.listIterator();
         StringBuilder s = new StringBuilder();
@@ -158,7 +161,7 @@ public class SerialComm implements StringListener {
         }
         return s.toString();
     }
-    
+
     public void setDataString(String s) {
         dataString.clear();
     }
