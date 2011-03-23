@@ -7,18 +7,23 @@
         return;
     }
 
-    // TODO: Implement the node addressing (1)
-    SerialComm sc = (SerialComm) session.getAttribute("sc");
+    SerialComm sc = SerialComm.getInstance();
     if (request.getParameter("getdata") != null) {
 
-        SerialComm.getInstance().sendCommand(SerialComm.COMMAND_GETDATA, 1);
+        SerialComm.getInstance().sendCommand(SerialComm.COMMAND_GETDATA, Integer.parseInt(request.getParameter("node")));
         // SerialComm.getInstance().disconnect();
     } else if (request.getParameter("getecho") != null) {
-        SerialComm.getInstance().sendCommand(SerialComm.COMMAND_GETECHO, 1);
+        sc.sendCommand(SerialComm.COMMAND_GETECHO, Integer.parseInt(request.getParameter("node")));
     } else if (request.getParameter("getnodes") != null) {
-        SerialComm.getInstance().sendCommand(SerialComm.COMMAND_GETNODES, 1);
-    }else if(request.getParameter("disconnect")!=null){
-        SerialComm.getInstance().disconnect();
+        sc.sendCommand(SerialComm.COMMAND_GETNODES);
+    } else if (request.getParameter("disconnect") != null) {
+        sc.disconnect();
+    } else if (request.getParameter("connect") != null) {
+        sc.connect(request.getParameter("port"), Integer.parseInt(request.getParameter("baud")));
+    } else if (request.getParameter("getnodeaddress") != null) {
+        sc.sendCommand(SerialComm.COMMAND_GETCONNECTEDNODE);
+    } else if (request.getParameter("clear")!=null) {
+        sc.setDataString("");
     }
     response.sendRedirect("content.jsp");
 %>

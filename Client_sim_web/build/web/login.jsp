@@ -3,7 +3,6 @@
     Created on : Dec 16, 2010, 4:23:13 PM
     Author     : simon
 --%>
-<%@page import="serial.SerialComm"%>
 <%
             String error = (String) session.getAttribute("error");
 

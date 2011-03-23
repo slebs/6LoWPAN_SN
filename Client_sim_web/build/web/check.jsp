@@ -1,4 +1,3 @@
-<%@page import="serial.SerialComm"%>
 <%@page import="jdbc.DBManager"%>
 <%
     String benutzerName = request.getParameter("user");

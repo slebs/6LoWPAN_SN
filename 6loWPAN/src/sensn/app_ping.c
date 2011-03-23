@@ -53,6 +53,8 @@ void pingMacro() {
 /*
  * function sends a periodic ping request over UDP to the dest_addr_ping
  * @param dest_addr_ping Address the ping request is sent
+ * @param iter number of iterations
+ * iter 0 endless ping
  */
 void sendPing(uint16_t dest, uint16_t iter) {
 	dest_addr_ping = dest;
