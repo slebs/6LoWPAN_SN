@@ -4,6 +4,7 @@
 // 11: MOSI
 // 12: MISO
 // 13: SCK
+// 15: muhahahhahah
 
 // Put an LED (with resistor) on the following pins:
 // 9: Heartbeat - shows the programmer is running
