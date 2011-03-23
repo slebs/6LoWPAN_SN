@@ -157,8 +157,10 @@ int main(void) {
 		// or edit the example appTask().
 		//appTask();
 
-		//Task von Simon
+		//LoopTask for Appinterface (apps' periodic tasks should be called int loopTask() function
 		loopTask();
+
+		//Stack tasks are down here
 		macTask();
 
 		// added Task to check for incoming protocol messages - by Dresden Elektronik

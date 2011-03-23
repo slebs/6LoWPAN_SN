@@ -15,6 +15,8 @@
  * return the sensor data ready to send to the coordinator
  */
 char* get_sensor_data(){
-
-	return "uhhhhhhuuu";
+	// dummie return for testing
+	char* rv = "";
+	sprintf(rv,"Sensor Data from node: %d",macConfig.shortAddress);
+	return rv;
 }
