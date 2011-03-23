@@ -108,8 +108,12 @@ void app_ping_coord_process(uint8_t* pUDPpacket, int16_t originAddr) {
 	if (*pUDPpacket == COMMAND_PING_RESPONSE) {
 		pingdelay = macGetTime() - pingdelay;
 		LED_TOGGLE(LED_WORKING);
+#ifdef SENSORNETWORK
+		printf("#pingresponse %d\n", pingdelay);
+#else
 		UART_PRINT("Ping: %d : response took: %ums\r\n", originAddr, pingdelay);
-		printf("#pingresponse %d", pingdelay);
+#endif
+
 	}
 
 }
@@ -132,7 +136,11 @@ void app_ping_device_process(uint8_t* pUDPpacket, int16_t originAddr) {
 	if (*pUDPpacket == COMMAND_PING_RESPONSE) {
 		pingdelay = macGetTime() - pingdelay;
 		LED_TOGGLE(LED_WORKING);
+#ifdef SENSORNETWORK
+		printf("#pingresponse %d\n", pingdelay);
+#else
 		UART_PRINT("Ping: %d : response took: %ums\r\n", originAddr, pingdelay);
-		printf("#pingresponse %d", pingdelay);
+#endif
+
 	}
 }

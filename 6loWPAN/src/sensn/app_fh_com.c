@@ -68,7 +68,7 @@ void fh_com_looptask() {
 		//	Mit UART-String
 		raute_pos = (unsigned char) strlen(
 				(char*) strstr((char *) uart_string, "#")) - strlen(
-				(char *) uart_string);
+				(char*) uart_string);
 		if (raute_pos == 255)
 			raute_pos = 0;
 
@@ -91,11 +91,11 @@ void fh_com_looptask() {
 		if (strcmp(command, "#getecho") == 0) {
 
 			if (macIsChild(atoi(paraBuffer)) == false) {
-							UART_PRINT("Node nicht im Netzwerk\r\n");
-						} else {
-							uint16_t addr = atoi(paraBuffer);
-							sendPing(addr,4);
-						}
+				UART_PRINT("Node nicht im Netzwerk\r\n");
+			} else {
+				uint16_t addr = atoi(paraBuffer);
+				sendPing(addr, 4);
+			}
 		}
 
 		if (strcmp(command, "#getnodes") == 0) {
@@ -103,8 +103,8 @@ void fh_com_looptask() {
 		}
 
 		if (strcmp(command, "#getnodeaddress") == 0) {
-					printf("#address %d\n",macConfig.shortAddress);
-				}
+			printf("#address %d\n", macConfig.shortAddress);
+		}
 	}
 
 }
@@ -113,7 +113,6 @@ void fh_com_looptask() {
  * coord --> node (addr)
  */
 void send_SN_data_request(uint16_t addr) {
-	UART_PRINT("send_data_request to %d\r\n", addr);
 	SN_data_frame_t pdata;
 	pdata.command = COMMAND_COORD_DATA_REQUEST;
 	pdata.length = 0;
@@ -129,15 +128,17 @@ void send_SN_data_request(uint16_t addr) {
  */
 void app_fh_com_process_data_req(uint8_t* pUDPpacket) {
 	int i = 0;
-	UART_PRINT("NODE: got data request\r\n");
+	UART_PRINT("NODE: got SN_data_request\r\n");
 	char* u = get_sensor_data();
-	SN_data_frame_t pdata;
+	SN_data_frame_t  pdata;
 	pdata.command = COMMAND_COORD_DATA_RESPONSE;
+	pdata.length = strlen(u);
+
 	for (i = 0; i < strlen(u); i++) {
 		pdata.payload[i] = u[i];
 		UART_PRINT("%c",u[i]);
 	}
-	pdata.length = strlen(u);
+
 
 	send_SN_data_wireless(DEFAULT_COORD_ADDR, (uint8_t *) &pdata,
 			sizeof(SN_data_frame_t), UDP_PORT_SENSN_END_ROUTER,
@@ -146,7 +147,6 @@ void app_fh_com_process_data_req(uint8_t* pUDPpacket) {
 
 void app_fh_com_process_data_res(uint8_t* pUDPpacket) {
 	char * payload;
-	UART_PRINT("COORD: got data response\r\n");
 	SN_data_frame_t * frame = (SN_data_frame_t *) pUDPpacket;
 	payload = frame->payload;
 	payload[frame->length] = '\0';
