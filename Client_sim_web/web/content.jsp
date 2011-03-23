@@ -88,9 +88,9 @@
                 <input type="submit" value="Disconnect RS232" name="disconnect"/>
             </form>
 
-
-
-
+                    <textarea rows="2" cols="20" readonly="true">
+At W3Schools you will find all the Web-building tutorials you need, from basic HTML to advanced XML, SQL, ASP, and PHP.
+            </textarea>
             <form action="logout.jsp" method="get">
 
                 <input type="submit" value="Logout" name="Logout" />
