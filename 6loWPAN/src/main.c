@@ -101,10 +101,9 @@ int main(void) {
 	halSetupClock();
 
 #if defined(UART_DEBUG) || defined(COMMUNICATION_UART)
-	//uart_init(38400);  // init UART hardware (other possible values: 9600, 115200)
-	//uart_init(115200); // init UART hardware (other possible values: 9600, 115200)
-	uart_init(9600); // init UART hardware (other possible values: 9600, 115200)
-
+	//uart_init(38400);
+	//uart_init(115200);
+	uart_init(9600);
 #endif
 
 	// init HDLC layer (frame tagging)

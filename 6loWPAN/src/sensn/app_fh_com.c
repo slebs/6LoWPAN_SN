@@ -128,7 +128,7 @@ void send_SN_data_request(uint16_t addr) {
  */
 void app_fh_com_process_data_req(uint8_t* pUDPpacket) {
 	int i = 0;
-	UART_PRINT("NODE: got SN_data_request\r\n");
+	//UART_PRINT("NODE: got SN_data_request\r\n");
 	char* u = get_sensor_data();
 	SN_data_frame_t  pdata;
 	pdata.command = COMMAND_COORD_DATA_RESPONSE;
@@ -138,7 +138,6 @@ void app_fh_com_process_data_req(uint8_t* pUDPpacket) {
 		pdata.payload[i] = u[i];
 		UART_PRINT("%c",u[i]);
 	}
-
 
 	send_SN_data_wireless(DEFAULT_COORD_ADDR, (uint8_t *) &pdata,
 			sizeof(SN_data_frame_t), UDP_PORT_SENSN_END_ROUTER,

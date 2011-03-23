@@ -489,8 +489,8 @@ uint8_t sixlowpan_udp_usercall(uint16_t sourceport, uint16_t destport,
        * If VLP switch to a faster timeout */
       if (VLP)
       {
-         SIXLOWPAN_PERIODIC_TIME = 2;
-         SIXLOWPAN_PERIODIC_APP_TIME = 0;
+#define SIXLOWPAN_PERIODIC_TIME = 2;
+#define SIXLOWPAN_PERIODIC_APP_TIME = 0;
       }
       else
       {
