@@ -42,7 +42,7 @@
         <div id="wrappertop"></div>
         <div id="wrapper">
 
-            <h1>SensorNetwork Controll Interface</h1>
+            <h1>SensorNetwork Test Control Interface</h1>
             <h2>Logged in as <%=benutzerName%></h2>
 
             <% if (DBManager.getInstance().isAdmin(benutzerName)) {%> 
