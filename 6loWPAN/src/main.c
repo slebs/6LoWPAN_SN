@@ -103,7 +103,7 @@ int main(void) {
 #if defined(UART_DEBUG) || defined(COMMUNICATION_UART)
 	//uart_init(38400);
 	//uart_init(115200);
-	//TEST COMMIT
+	// i freu mi sooo, dass das github geht... :DD
 	uart_init(9600);
 #endif
 
