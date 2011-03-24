@@ -18,8 +18,6 @@
         session.setAttribute("error", "0");
         return;
     }
-
-
     // TreeMap tm = DBManager.getInstance().getDataMap();
     // int intervall = DBManager.getInstance().getIntervall();
 %>
