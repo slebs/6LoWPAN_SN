@@ -151,4 +151,3 @@ void app_fh_com_process_data_res(uint8_t* pUDPpacket) {
 	payload[frame->length] = '\0';
 	printf("#BOData\n%s\n#EOData\n", payload);
 }
-
