@@ -59,8 +59,8 @@
                     %><option value="/dev/ttyACM0">/dev/ttyACM0</option>
                 </select>
                 <select name="baud"> 
-                    <option value="<% out.print(SerialComm.getInstance().getBaud());%>"><% out.print(SerialComm.getInstance().getBaud());%></option>
                     <option value="9600" >9600</option>
+                    <option value="<% out.print(SerialComm.getInstance().getBaud());%>"><% out.print(SerialComm.getInstance().getBaud());%></option>
                 </select>
                 <input type="submit" value="Connect UART" name="connect"/>
             </form>
