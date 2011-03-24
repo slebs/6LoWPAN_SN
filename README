@@ -1,5 +1,2 @@
-Hier informationen zum Projekt einfügen
-
-Projektbeschreibung
-
-Installationshinweise
+Kurzbeschreibung
+Das Projekt befasst sich mit dem Aufbau eines Sensornetzwerks über 6LoWPAN, um unterschiedliche Messdaten schneller, effizienter und sicherer zu übertragen. Ein Sensor Netzwerk ist ein Zusammenschluss vieler verschiedener Sensoren, welche miteinander kommunizieren. Ziel ist es, die Aufnahme und Verbreitung wichtiger Messdaten, durch den Einsatz von zukunftsorientierter Technik zu revolutionieren. Die aufgenommenen Messdaten können aufgrund von IPv6 der ganzen Welt bereitgestellt werden. Dadurch ergeben sich völlig neue Möglichkeiten, wie punktgenaue Wettervorhersagen, genauere Umweltdatenerfassung, bessere Ernteausbeute für Bauern und kosteneffiziente Heizoptimierungen in großen Gebäuden, um nur einige Teilbereiche zu nennen. Das Übertragungssystem wird optimiert bezüglich Energiebedarf und Sicherheit der Datenübertragung. Das ganze Netzwerk kann durch einfaches Hinzufügen von Sensoren praktisch mühelos erweitert werden, ohne Funktionseinschränkungen hinnehmen zu müssen. Es gibt derzeit nur wenige Projekte, die über 6LoWPAN Daten übertragen, deswegen ist es Ziel des Projektes, die Vorteile zu nutzen und einen weiteren Schritt in Richtung vernetzte Welt und effizienten Informationsaustausch zu tätigen, und die Verbreitung von IPv6 und im Speziellen 6LoWPAN voranzutreiben. 
