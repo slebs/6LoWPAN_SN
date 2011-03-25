@@ -18,8 +18,6 @@
         session.setAttribute("error", "0");
         return;
     }
-
-
     // TreeMap tm = DBManager.getInstance().getDataMap();
     // int intervall = DBManager.getInstance().getIntervall();
 %>
@@ -42,7 +40,7 @@
         <div id="wrappertop"></div>
         <div id="wrapper">
 
-            <h1>SensorNetwork Controll Interface</h1>
+            <h1>SensorNetwork Test Control Interface</h1>
             <h2>Logged in as <%=benutzerName%></h2>
 
             <% if (DBManager.getInstance().isAdmin(benutzerName)) {%> 
@@ -58,11 +56,11 @@
                         for (int i = 0; i < ports.size(); i++) {
                             out.println("<option value=\"" + ports.get(i) + "\">" + ports.get(i) + "</option>");
                         }
-                    %>
+                    %><option value="/dev/ttyACM0">/dev/ttyACM0</option>
                 </select>
                 <select name="baud"> 
-                    <option value="<% out.print(SerialComm.getInstance().getBaud());%>"><% out.print(SerialComm.getInstance().getBaud());%></option>
                     <option value="9600" >9600</option>
+                    <option value="<% out.print(SerialComm.getInstance().getBaud());%>"><% out.print(SerialComm.getInstance().getBaud());%></option>
                 </select>
                 <input type="submit" value="Connect UART" name="connect"/>
             </form>
