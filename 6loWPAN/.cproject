@@ -36,7 +36,7 @@
 								<option id="de.innot.avreclipse.compiler.option.def.1276341406" name="Define Syms (-D)" superClass="de.innot.avreclipse.compiler.option.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="SENSORNETWORK"/>
 									<listOptionValue builtIn="false" value="RUMSLEEP"/>
-									<listOptionValue builtIn="false" value="APP_PING"/>
+									<listOptionValue builtIn="false" value="APP_PERF"/>
 									<listOptionValue builtIn="false" value="COORDNODE"/>
 									<listOptionValue builtIn="false" value="F_CPU=8000000UL"/>
 									<listOptionValue builtIn="false" value="SINGLE_CHIP"/>
@@ -1092,9 +1092,8 @@
 								<option id="de.innot.avreclipse.compiler.option.optimize.1861988357" name="Optimization Level" superClass="de.innot.avreclipse.compiler.option.optimize" value="de.innot.avreclipse.compiler.optimize.size" valueType="enumerated"/>
 								<option id="de.innot.avreclipse.compiler.option.def.2034069491" name="Define Syms (-D)" superClass="de.innot.avreclipse.compiler.option.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="SENSORNETWORK"/>
-									<listOptionValue builtIn="false" value="VLP"/>
 									<listOptionValue builtIn="false" value="RUMSLEEP"/>
-									<listOptionValue builtIn="false" value="APP_PING"/>
+									<listOptionValue builtIn="false" value="APP_PERF"/>
 									<listOptionValue builtIn="false" value="ENDNODE"/>
 									<listOptionValue builtIn="false" value="F_CPU=8000000UL"/>
 									<listOptionValue builtIn="false" value="SINGLE_CHIP"/>

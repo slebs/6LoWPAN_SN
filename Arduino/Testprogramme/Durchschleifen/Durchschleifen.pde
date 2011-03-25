@@ -5,8 +5,8 @@
   
   void setup()
   {
-    rcbUART.begin(115200);
-    Serial.begin(115200);
+    rcbUART.begin(9600);
+    Serial.begin(9600);
     pinMode(13, OUTPUT);
   }
   
