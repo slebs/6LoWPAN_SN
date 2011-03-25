@@ -2148,7 +2148,7 @@
 								<option id="de.innot.avreclipse.compiler.option.def.63481683" name="Define Syms (-D)" superClass="de.innot.avreclipse.compiler.option.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="SENSORNETWORK"/>
 									<listOptionValue builtIn="false" value="RUMSLEEP"/>
-									<listOptionValue builtIn="false" value="APP_PING"/>
+									<listOptionValue builtIn="false" value="APP_PERF"/>
 									<listOptionValue builtIn="false" value="ROUTERNODE"/>
 									<listOptionValue builtIn="false" value="F_CPU=8000000UL"/>
 									<listOptionValue builtIn="false" value="SINGLE_CHIP"/>
@@ -2189,17 +2189,17 @@
 						</toolChain>
 					</folderInfo>
 					<folderInfo id="de.innot.avreclipse.configuration.app.release.1323041431.1314325865.2114558271.305065532" name="/" resourcePath="src">
-						<toolChain id="de.innot.avreclipse.toolchain.winavr.app.release.1072702320" name="AVR-GCC Toolchain" superClass="de.innot.avreclipse.toolchain.winavr.app.release" unusedChildren="">
+						<toolChain errorParsers="" id="de.innot.avreclipse.toolchain.winavr.app.release.1072702320" name="AVR-GCC Toolchain" superClass="de.innot.avreclipse.toolchain.winavr.app.release" unusedChildren="">
 							<option id="de.innot.avreclipse.toolchain.options.toolchain.objcopy.flash.app.release.2107136531.1278034840" name="Generate HEX file for Flash memory" superClass="de.innot.avreclipse.toolchain.options.toolchain.objcopy.flash.app.release.2107136531"/>
 							<option id="de.innot.avreclipse.toolchain.options.toolchain.objcopy.eeprom.app.release.965789907.1487210149" name="Generate HEX file for EEPROM" superClass="de.innot.avreclipse.toolchain.options.toolchain.objcopy.eeprom.app.release.965789907"/>
 							<option id="de.innot.avreclipse.toolchain.options.toolchain.objdump.app.release.196137248.705612697" name="Generate Extended Listing (Source + generated Assembler)" superClass="de.innot.avreclipse.toolchain.options.toolchain.objdump.app.release.196137248"/>
 							<option id="de.innot.avreclipse.toolchain.options.toolchain.size.app.release.1481792351.534858208" name="Print Size" superClass="de.innot.avreclipse.toolchain.options.toolchain.size.app.release.1481792351"/>
 							<option id="de.innot.avreclipse.toolchain.options.toolchain.avrdude.app.release.1934144537.1319002263" name="AVRDude" superClass="de.innot.avreclipse.toolchain.options.toolchain.avrdude.app.release.1934144537"/>
 							<targetPlatform id="de.innot.avreclipse.targetplatform.winavr.app.release" name="AVR Cross-Target" superClass="de.innot.avreclipse.targetplatform.winavr.app.release"/>
-							<tool id="de.innot.avreclipse.tool.assembler.winavr.app.release.2113116000" name="AVR Assembler" superClass="de.innot.avreclipse.tool.assembler.winavr.app.release.2042465194">
+							<tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="de.innot.avreclipse.tool.assembler.winavr.app.release.2113116000" name="AVR Assembler" superClass="de.innot.avreclipse.tool.assembler.winavr.app.release.2042465194">
 								<inputType id="de.innot.avreclipse.tool.assembler.input.1791494900" superClass="de.innot.avreclipse.tool.assembler.input"/>
 							</tool>
-							<tool id="de.innot.avreclipse.tool.compiler.winavr.app.release.269090728" name="AVR Compiler" superClass="de.innot.avreclipse.tool.compiler.winavr.app.release.466649550">
+							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="de.innot.avreclipse.tool.compiler.winavr.app.release.269090728" name="AVR Compiler" superClass="de.innot.avreclipse.tool.compiler.winavr.app.release.466649550">
 								<option id="de.innot.avreclipse.compiler.option.def.2137078271" name="Define Syms (-D)" superClass="de.innot.avreclipse.compiler.option.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="SENSORNETWORK"/>
 									<listOptionValue builtIn="false" value="APP_PING"/>
@@ -2219,10 +2219,10 @@
 							<tool id="de.innot.avreclipse.tool.linker.winavr.app.release.1230216150" name="AVR C Linker" superClass="de.innot.avreclipse.tool.linker.winavr.app.release.908078514"/>
 							<tool id="de.innot.avreclipse.tool.cpplinker.app.release.1058412442" name="AVR C++ Linker" superClass="de.innot.avreclipse.tool.cpplinker.app.release.1121780792"/>
 							<tool id="de.innot.avreclipse.tool.archiver.winavr.base.1079568496" name="AVR Archiver" superClass="de.innot.avreclipse.tool.archiver.winavr.base.345005726"/>
-							<tool id="de.innot.avreclipse.tool.objdump.winavr.app.release.1105977660" name="AVR Create Extended Listing" superClass="de.innot.avreclipse.tool.objdump.winavr.app.release.1450963246"/>
-							<tool id="de.innot.avreclipse.tool.objcopy.flash.winavr.app.release.1221655804" name="AVR Create Flash image" superClass="de.innot.avreclipse.tool.objcopy.flash.winavr.app.release.901917934"/>
-							<tool id="de.innot.avreclipse.tool.objcopy.eeprom.winavr.app.release.1307548654" name="AVR Create EEPROM image" superClass="de.innot.avreclipse.tool.objcopy.eeprom.winavr.app.release.540433682"/>
-							<tool id="de.innot.avreclipse.tool.size.winavr.app.release.33262419" name="Print Size" superClass="de.innot.avreclipse.tool.size.winavr.app.release.1623584122"/>
+							<tool errorParsers="" id="de.innot.avreclipse.tool.objdump.winavr.app.release.1105977660" name="AVR Create Extended Listing" superClass="de.innot.avreclipse.tool.objdump.winavr.app.release.1450963246"/>
+							<tool errorParsers="" id="de.innot.avreclipse.tool.objcopy.flash.winavr.app.release.1221655804" name="AVR Create Flash image" superClass="de.innot.avreclipse.tool.objcopy.flash.winavr.app.release.901917934"/>
+							<tool errorParsers="" id="de.innot.avreclipse.tool.objcopy.eeprom.winavr.app.release.1307548654" name="AVR Create EEPROM image" superClass="de.innot.avreclipse.tool.objcopy.eeprom.winavr.app.release.540433682"/>
+							<tool errorParsers="" id="de.innot.avreclipse.tool.size.winavr.app.release.33262419" name="Print Size" superClass="de.innot.avreclipse.tool.size.winavr.app.release.1623584122"/>
 							<tool id="de.innot.avreclipse.tool.avrdude.app.release.1800226601" name="AVRDude" superClass="de.innot.avreclipse.tool.avrdude.app.release.1810559303"/>
 						</toolChain>
 					</folderInfo>
