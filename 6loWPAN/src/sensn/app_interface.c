@@ -61,6 +61,13 @@ void alive_pulse() {
  */
 void app_init() {
 
+#ifdef APP_PERF
+	UART_PRINT("APP_PERF defined\r\n");
+#endif
+#ifdef APP_PING
+	UART_PRINT("APP_PING defined\r\n");
+#endif
+
 #if (__AVR__)
 	// If the EEPROM is cleared, init it to something useful
 	checkEeprom();
