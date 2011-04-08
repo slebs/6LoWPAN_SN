@@ -101,7 +101,7 @@ int main(void) {
 	halSetupClock();
 
 #if defined(UART_DEBUG) || defined(COMMUNICATION_UART)
-	//uart_init(38400);
+	//uart_init(19200);
 	//uart_init(115200);
 	uart_init(9600);
 #endif

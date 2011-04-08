@@ -45,7 +45,3 @@ void loop(){
     uart_putc(rcbUART.read());  
   }
 }
-
-
-
-

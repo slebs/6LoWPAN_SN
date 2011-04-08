@@ -47,7 +47,7 @@
 void pulse(int pin, int times);
 
 void setup() {
-  Serial.begin(19200);
+  Serial.begin(9600);
   pinMode(7, OUTPUT);
   pulse(7, 2);
   pinMode(8, OUTPUT);
@@ -92,7 +92,7 @@ void heartbeat() {
   analogWrite(LED_HB, hbval);
   delay(40);
 }
-  
+
 
 void loop(void) {
   // is pmode active?
@@ -101,7 +101,7 @@ void loop(void) {
   // is there an error?
   if (error) digitalWrite(LED_ERR, HIGH); 
   else digitalWrite(LED_ERR, LOW);
-  
+
   // light the heartbeat LED
   heartbeat();
   if (Serial.available()) {
@@ -213,7 +213,7 @@ void set_parameters() {
   param.flashpoll = buff[8]; 
   // ignore buff[9] (= buff[8])
   //getch(); // discard second value
-  
+
   // WARNING: not sure about the byte order of the following
   // following are 16 bits (big endian)
   param.eeprompoll = beget16(&buff[10]);
@@ -316,8 +316,8 @@ void program_page() {
   char result = (char) STK_FAILED;
   int length = 256 * getch() + getch();
   if (length > 256) {
-      Serial.print((char) STK_FAILED);
-      return;
+    Serial.print((char) STK_FAILED);
+    return;
   }
   char memtype = getch();
   for (int x = 0; x < length; x++) {
@@ -335,9 +335,9 @@ void program_page() {
 }
 uint8_t flash_read(uint8_t hilo, int addr) {
   return spi_transaction(0x20 + hilo * 8,
-    (addr >> 8) & 0xFF,
-    addr & 0xFF,
-    0);
+  (addr >> 8) & 0xFF,
+  addr & 0xFF,
+  0);
 }
 
 char flash_read_page(int length) {
@@ -444,7 +444,7 @@ int avrisp() {
   case 0x64: //STK_PROG_PAGE
     program_page();
     break;
-    
+
   case 0x74: //STK_READ_PAGE
     read_page();    
     break;
@@ -457,18 +457,18 @@ int avrisp() {
     end_pmode();
     empty_reply();
     break;
-    
+
   case 0x75: //STK_READ_SIGN
     read_signature();
     break;
 
-  // expecting a command, not CRC_EOP
-  // this is how we can get back in sync
+    // expecting a command, not CRC_EOP
+    // this is how we can get back in sync
   case CRC_EOP:
     Serial.print((char) STK_NOSYNC);
     break;
-    
-  // anything else we will return STK_UNKNOWN
+
+    // anything else we will return STK_UNKNOWN
   default:
     if (CRC_EOP == getch()) 
       Serial.print((char)STK_UNKNOWN);
@@ -476,4 +476,6 @@ int avrisp() {
       Serial.print((char)STK_NOSYNC);
   }
 }
+
+
 
