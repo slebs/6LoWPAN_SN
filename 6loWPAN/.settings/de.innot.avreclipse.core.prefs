@@ -1,4 +1,4 @@
-#Wed Mar 23 23:43:59 CET 2011
+#Fri Apr 08 09:46:23 CEST 2011
 avrtarget/ClockFrequency=8000000
 avrtarget/ExtRAMSize=0
 avrtarget/ExtendedRAM=false
@@ -47,7 +47,7 @@ avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1216142184/av
 avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1216142184/avrdude/NoVerify=false
 avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1216142184/avrdude/NoWrite=false
 avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1216142184/avrdude/OtherOptions=
-avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1216142184/avrdude/ProgrammerID=programmerconfig.1
+avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1216142184/avrdude/ProgrammerID=programmerconfig.2
 avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1216142184/avrdude/UseCounter=false
 avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1216142184/avrdude/WriteEEPROM=false
 avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1216142184/avrdude/WriteFlash=true
@@ -99,7 +99,7 @@ avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1442868924/av
 avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1442868924/avrdude/NoVerify=false
 avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1442868924/avrdude/NoWrite=false
 avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1442868924/avrdude/OtherOptions=
-avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1442868924/avrdude/ProgrammerID=programmerconfig.1
+avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1442868924/avrdude/ProgrammerID=programmerconfig.2
 avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1442868924/avrdude/UseCounter=false
 avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1442868924/avrdude/WriteEEPROM=false
 avrtarget/de.innot.avreclipse.configuration.app.release.1323041431.1442868924/avrdude/WriteFlash=true

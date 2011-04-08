@@ -36,7 +36,6 @@
 								<option id="de.innot.avreclipse.compiler.option.def.1276341406" name="Define Syms (-D)" superClass="de.innot.avreclipse.compiler.option.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="APP_PERF"/>
 									<listOptionValue builtIn="false" value="SENSORNETWORK"/>
-									<listOptionValue builtIn="false" value="RUMSLEEP"/>
 									<listOptionValue builtIn="false" value="COORDNODE"/>
 									<listOptionValue builtIn="false" value="F_CPU=8000000UL"/>
 									<listOptionValue builtIn="false" value="SINGLE_CHIP"/>
@@ -91,7 +90,7 @@
 							<tool id="de.innot.avreclipse.tool.compiler.winavr.app.release.1963903334" name="AVR Compiler" superClass="de.innot.avreclipse.tool.compiler.winavr.app.release.1472719307">
 								<option id="de.innot.avreclipse.compiler.option.def.2085489980" name="Define Syms (-D)" superClass="de.innot.avreclipse.compiler.option.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="SENSORNETWORK"/>
-									<listOptionValue builtIn="false" value="APP_PING"/>
+									<listOptionValue builtIn="false" value="APP_PERF"/>
 									<listOptionValue builtIn="false" value="COORDNODE"/>
 									<listOptionValue builtIn="false" value="F_CPU=8000000UL"/>
 									<listOptionValue builtIn="false" value="SINGLE_CHIP"/>
@@ -1091,9 +1090,8 @@
 								<option id="de.innot.avreclipse.compiler.option.debug.level.1631728203" name="Generate Debugging Info" superClass="de.innot.avreclipse.compiler.option.debug.level" value="de.innot.avreclipse.compiler.option.debug.level.g2" valueType="enumerated"/>
 								<option id="de.innot.avreclipse.compiler.option.optimize.1861988357" name="Optimization Level" superClass="de.innot.avreclipse.compiler.option.optimize" value="de.innot.avreclipse.compiler.optimize.size" valueType="enumerated"/>
 								<option id="de.innot.avreclipse.compiler.option.def.2034069491" name="Define Syms (-D)" superClass="de.innot.avreclipse.compiler.option.def" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="APP_PERF"/>
+									<listOptionValue builtIn="false" value="APP_PERF=1"/>
 									<listOptionValue builtIn="false" value="SENSORNETWORK"/>
-									<listOptionValue builtIn="false" value="RUMSLEEP"/>
 									<listOptionValue builtIn="false" value="ENDNODE"/>
 									<listOptionValue builtIn="false" value="F_CPU=8000000UL"/>
 									<listOptionValue builtIn="false" value="SINGLE_CHIP"/>
@@ -1147,7 +1145,7 @@
 							<tool id="de.innot.avreclipse.tool.compiler.winavr.app.release.205770731" name="AVR Compiler" superClass="de.innot.avreclipse.tool.compiler.winavr.app.release.716725518">
 								<option id="de.innot.avreclipse.compiler.option.def.138872285" name="Define Syms (-D)" superClass="de.innot.avreclipse.compiler.option.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="SENSORNETWORK"/>
-									<listOptionValue builtIn="false" value="APP_PING"/>
+									<listOptionValue builtIn="false" value="APP_PERF"/>
 									<listOptionValue builtIn="false" value="ENDNODE"/>
 									<listOptionValue builtIn="false" value="F_CPU=8000000UL"/>
 									<listOptionValue builtIn="false" value="SINGLE_CHIP"/>
@@ -2147,8 +2145,7 @@
 								<option id="de.innot.avreclipse.compiler.option.optimize.1658431334" name="Optimization Level" superClass="de.innot.avreclipse.compiler.option.optimize" value="de.innot.avreclipse.compiler.optimize.size" valueType="enumerated"/>
 								<option id="de.innot.avreclipse.compiler.option.def.63481683" name="Define Syms (-D)" superClass="de.innot.avreclipse.compiler.option.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="SENSORNETWORK"/>
-									<listOptionValue builtIn="false" value="RUMSLEEP"/>
-									<listOptionValue builtIn="false" value="APP_PERF"/>
+									<listOptionValue builtIn="false" value="APP_PERF=1"/>
 									<listOptionValue builtIn="false" value="ROUTERNODE"/>
 									<listOptionValue builtIn="false" value="F_CPU=8000000UL"/>
 									<listOptionValue builtIn="false" value="SINGLE_CHIP"/>
@@ -2202,7 +2199,7 @@
 							<tool id="de.innot.avreclipse.tool.compiler.winavr.app.release.269090728" name="AVR Compiler" superClass="de.innot.avreclipse.tool.compiler.winavr.app.release.466649550">
 								<option id="de.innot.avreclipse.compiler.option.def.2137078271" name="Define Syms (-D)" superClass="de.innot.avreclipse.compiler.option.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="SENSORNETWORK"/>
-									<listOptionValue builtIn="false" value="APP_PING"/>
+									<listOptionValue builtIn="false" value="APP_PERF"/>
 									<listOptionValue builtIn="false" value="ROUTERNODE"/>
 									<listOptionValue builtIn="false" value="F_CPU=8000000UL"/>
 									<listOptionValue builtIn="false" value="SINGLE_CHIP"/>

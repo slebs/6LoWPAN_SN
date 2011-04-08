@@ -99,7 +99,28 @@ void fh_com_looptask() {
 		}
 
 		if (strcmp(command, "#getnodes") == 0) {
-			//TODO Implement
+			UART_PRINT("getnodes empfangen\r\n");
+#if (NODETYPE==COORD)
+			UART_PRINT("getnodes empfangen\r\n");
+			associatedNodes_t* nodes = (associatedNodes_t*) getChildTable();
+			associatedNodes_t* node;
+
+			uint8_t i;
+			UART_PRINT("größe des Arrays: %d",(sizeof(nodes)/sizeof(associatedNodes_t)));
+			printf("#nodelist");
+			for (i = 1; i < MAXNODES; i++) {
+				node = &nodes[i];
+
+				 if ((node->nodeType) == ENDDEVICE)
+				      {
+					 //u64
+					printf(" shortaddr:%d,longaddr:%llu",i,node->nodeLongAddress);
+				}
+				//sendPing(i,10);
+				//UART_PRINT("Node x%d im Netzwerk\r\n", i);
+			}
+
+#endif
 		}
 
 		if (strcmp(command, "#getnodeaddress") == 0) {
@@ -130,7 +151,7 @@ void app_fh_com_process_data_req(uint8_t* pUDPpacket) {
 	int i = 0;
 	//UART_PRINT("NODE: got SN_data_request\r\n");
 	char* u = get_sensor_data();
-	SN_data_frame_t  pdata;
+	SN_data_frame_t pdata;
 	pdata.command = COMMAND_COORD_DATA_RESPONSE;
 	pdata.length = strlen(u);
 

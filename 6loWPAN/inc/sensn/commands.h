@@ -30,4 +30,8 @@
 /** @brief Stop response frame from Node */
 #define COMMAND_STOP_REQUEST					(0x05)
 
+/** @brief Getnodes frame from Coordinator */
+#define COMMAND_GET_NODES_REQUEST				(0x06))
+
+
 #endif /* COMMANDS_H_ */
