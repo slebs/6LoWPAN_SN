@@ -39,7 +39,6 @@ int16_t tmp75_read_temp(void)
 
 	uint8_t tmphi, tmplo;
 	int16_t temp;
-	_delay_ms(500);
 	i2c_start_wait(TMP75_ADDR+I2C_WRITE);
 	i2c_write(0x00); // address Temperature register
 	i2c_rep_start(TMP75_ADDR + I2C_READ);

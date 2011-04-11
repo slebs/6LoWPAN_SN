@@ -80,7 +80,7 @@ void app_fh_com_process_data_req(uint8_t* pUDPpacket);
 char* get_sensor_data();
 void set_i2c_params();
 void i2c_init();
-
+void print_sensor_data();
 //functions for sensornetwork
 /*
  * dummie

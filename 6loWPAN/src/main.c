@@ -125,6 +125,7 @@ int main(void) {
 
 	// Init sensor_network application
 	app_init();
+	macSetAlarm(1000, print_sensor_data);
 
 #if defined(ROUTERNODE) || defined(ENDNODE)
 	//check_io_components(); // is called via macSetAlarm() every 20 ms
