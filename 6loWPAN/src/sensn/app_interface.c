@@ -61,6 +61,11 @@ void alive_pulse() {
  */
 void app_init() {
 
+#ifdef SENSORNETWORK
+	UART_PRINT("SENSORNETWORK defined\r\n");
+	i2c_init();
+#endif
+
 #ifdef APP_PERF
 	UART_PRINT("APP_PERF defined\r\n");
 #endif
