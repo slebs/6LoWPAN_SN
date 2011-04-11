@@ -99,8 +99,9 @@ int main(void) {
 
 	// Setup clock speed
 	halSetupClock();
-	set_i2c_params();
-
+	if (NODETYPE != COORD) {
+		set_i2c_params();
+	}
 #if defined(UART_DEBUG) || defined(COMMUNICATION_UART)
 	//uart_init(19200);
 	//uart_init(115200);
