@@ -55,10 +55,11 @@
 								<option id="de.innot.avreclipse.cppcompiler.option.optimize.1668416980" name="Optimization Level" superClass="de.innot.avreclipse.cppcompiler.option.optimize" value="de.innot.avreclipse.cppcompiler.optimize.size" valueType="enumerated"/>
 							</tool>
 							<tool command="avr-gcc" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" id="de.innot.avreclipse.tool.linker.winavr.app.release.549167202" name="AVR C Linker" superClass="de.innot.avreclipse.tool.linker.winavr.app.release">
-								<option id="de.innot.avreclipse.linker.option.otherlinkargs.243984332" name="Other Arguments" superClass="de.innot.avreclipse.linker.option.otherlinkargs" value="-Wl,-section-start=.data=0x800200" valueType="string"/>
+								<option id="de.innot.avreclipse.linker.option.otherlinkargs.243984332" name="Other Arguments" superClass="de.innot.avreclipse.linker.option.otherlinkargs" value="-Wl,-section-start=.data=0x800200 -Wl,-u,vfprintf -lprintf_flt -lm " valueType="string"/>
 								<option id="de.innot.avreclipse.linker.option.otherlink.145229110" name="(-Xlinker) Options" superClass="de.innot.avreclipse.linker.option.otherlink"/>
 								<option id="de.innot.avreclipse.linker.option.libs.1427376028" name="Libraries (-l)" superClass="de.innot.avreclipse.linker.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="m"/>
+									<listOptionValue builtIn="false" value="printf_flt"/>
 									<listOptionValue builtIn="false" value="gcc"/>
 									<listOptionValue builtIn="false" value="m"/>
 								</option>
@@ -2166,9 +2167,10 @@
 								<option id="de.innot.avreclipse.cppcompiler.option.optimize.1560707255" name="Optimization Level" superClass="de.innot.avreclipse.cppcompiler.option.optimize" value="de.innot.avreclipse.cppcompiler.optimize.size" valueType="enumerated"/>
 							</tool>
 							<tool command="avr-gcc" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GLDErrorParser" id="de.innot.avreclipse.tool.linker.winavr.app.release.908078514" name="AVR C Linker" superClass="de.innot.avreclipse.tool.linker.winavr.app.release">
-								<option id="de.innot.avreclipse.linker.option.otherlinkargs.1467737087" name="Other Arguments" superClass="de.innot.avreclipse.linker.option.otherlinkargs" value="-Wl,-section-start=.data=0x800200" valueType="string"/>
+								<option id="de.innot.avreclipse.linker.option.otherlinkargs.1467737087" name="Other Arguments" superClass="de.innot.avreclipse.linker.option.otherlinkargs" value="-Wl,-section-start=.data=0x800200 -Wl,-u,vfprintf -lprintf_flt -lm " valueType="string"/>
 								<option id="de.innot.avreclipse.linker.option.libs.2080442047" name="Libraries (-l)" superClass="de.innot.avreclipse.linker.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="m"/>
+									<listOptionValue builtIn="false" value="printf_flt"/>
 									<listOptionValue builtIn="false" value="gcc"/>
 									<listOptionValue builtIn="false" value="m"/>
 								</option>

@@ -16,23 +16,26 @@
 #include "../../inc/sensn/tmp75.h"
 #include "../../inc/avr_timer.h"
 
-static char rv[80];
+static char rv[MAX_PAYLOAD_LENGTH_SN];
 
 /*
  * return the sensor data ready to send to the coordinator
  */
 char* get_sensor_data() {
 
-	sprintf(rv, "Sensor Data from node: %d : Temp: %2.2f", macConfig.shortAddress,
-			((float) tmp75_read_temp() / 16.0));
-	UART_PRINT("%s",rv);
+	sprintf(rv, "Sensor Data from node: %d : Temp: %2.2f",
+			macConfig.shortAddress, ((float) tmp75_read_temp() / 16.0));
+	//UART_PRINT("%s",rv);
 	return rv;
 
 }
+
+/*
+ * test function to test TWI periodically
+ */
 void print_sensor_data() {
-	sprintf(rv, "Sensor Data from node: %d : Temp: %3.3f\r\n",
+	UART_PRINT("Sensor Data from node: %d : Temp: %3.3f\r\n",
 			macConfig.shortAddress, ((float) tmp75_read_temp() / 16.0));
-	UART_PRINT("%s",rv);
 	macSetAlarm(1000, print_sensor_data);
 }
 
