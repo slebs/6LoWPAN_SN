@@ -59,6 +59,7 @@ ISR(USART0_RX_vect)
 
 void fh_com_looptask() {
 
+
 	if (uart_str_complete == 1) {
 		//Bearbeitung der Data-Link Befehle
 		command[0] = 0;
@@ -77,9 +78,9 @@ void fh_com_looptask() {
 
 		sscanf((char*) &uart_string[raute_pos], "%s %s\n", command, paraBuffer);
 
-		UART_PRINT("command: %s\n", command);
-		UART_PRINT("paraBuffer %s\n", paraBuffer);
+		UART_PRINT("command: %s\r\nparaBuffer %s\r\n", command, paraBuffer);
 
+#ifdef COORDNODE
 		if (strcmp(command, "#getdata") == 0) {
 			if (macIsChild(atoi(paraBuffer)) == false) {
 				UART_PRINT("Node nicht im Netzwerk\r\n");
@@ -88,41 +89,35 @@ void fh_com_looptask() {
 			}
 		}
 
-		if (strcmp(command, "#getecho") == 0) {
-
-			if (macIsChild(atoi(paraBuffer)) == false) {
-				UART_PRINT("Node nicht im Netzwerk\r\n");
-			} else {
-				uint16_t addr = atoi(paraBuffer);
-				sendPing(addr, 1);
-			}
-		}
-
 		if (strcmp(command, "#getnodes") == 0) {
 			UART_PRINT("getnodes empfangen\r\n");
-#if (NODETYPE==COORD)
+
 			UART_PRINT("getnodes empfangen\r\n");
 			associatedNodes_t* nodes = (associatedNodes_t*) getChildTable();
 			associatedNodes_t* node;
 
 			uint8_t i;
-			UART_PRINT("größe des Arrays: %d",(sizeof(nodes)/sizeof(associatedNodes_t)));
 			printf("#nodelist");
 			for (i = 1; i < MAXNODES; i++) {
 				node = &nodes[i];
 
 				 if ((node->nodeType) == ENDDEVICE)
 				      {
-					 //u64
 					printf(" shortaddr:%d,longaddr:%llu",i,node->nodeLongAddress);
 				}
-				//sendPing(i,10);
-				//UART_PRINT("Node x%d im Netzwerk\r\n", i);
 			}
-
-#endif
 		}
+#endif
 
+		if (strcmp(command, "#getecho") == 0) {
+
+					if (macIsChild(atoi(paraBuffer)) == false) {
+						UART_PRINT("Node nicht im Netzwerk\r\n");
+					} else {
+						uint16_t addr = atoi(paraBuffer);
+						sendPing(addr, 1);
+					}
+				}
 		if (strcmp(command, "#getnodeaddress") == 0) {
 			printf("#address %d\n", macConfig.shortAddress);
 		}

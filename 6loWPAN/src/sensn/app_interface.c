@@ -61,6 +61,8 @@ void alive_pulse() {
  */
 void app_init() {
 
+	UART_PRINT("build1");
+
 #ifdef SENSORNETWORK
 	UART_PRINT("SENSORNETWORK defined\r\n");
 #endif

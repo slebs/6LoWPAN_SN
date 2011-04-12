@@ -20,12 +20,12 @@ static char rv[MAX_PAYLOAD_LENGTH_SN];
 
 /*
  * return the sensor data ready to send to the coordinator
+ * TODO: @simon define format for sensor data
  */
 char* get_sensor_data() {
 
 	sprintf(rv, "Sensor Data from node: %d : Temp: %2.2f",
 			macConfig.shortAddress, ((float) tmp75_read_temp() / 16.0));
-	//UART_PRINT("%s",rv);
 	return rv;
 
 }
