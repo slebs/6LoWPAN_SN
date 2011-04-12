@@ -80,7 +80,6 @@ void fh_com_looptask() {
 		UART_PRINT("command: %s\r\nparaBuffer %s\r\n", command, paraBuffer);
 
 #ifdef COORDNODE
-		UART_PRINT("uhh");
 		if (strcmp(command, "#getdata") == 0) {
 			if (macIsChild(atoi(paraBuffer)) == false) {
 				UART_PRINT("Node nicht im Netzwerk\r\n");
@@ -90,22 +89,19 @@ void fh_com_looptask() {
 		}
 
 		if (strcmp(command, "#getnodes") == 0) {
-			UART_PRINT("getnodes empfangen\r\n");
-
-			UART_PRINT("getnodes empfangen\r\n");
 			associatedNodes_t* nodes = (associatedNodes_t*) getChildTable();
 			associatedNodes_t* node;
 
 			uint8_t i;
-			printf("#nodelist");
+			printf("#nodelist\n");
 			for (i = 1; i < MAXNODES; i++) {
 				node = &nodes[i];
 
 				if ((node->nodeType) == ENDDEVICE) {
-					printf(" shortaddr:%d,longaddr:%llu", i,
-							node->nodeLongAddress);
+					printf("#shortaddr:%d\n", i);
 				}
 			}
+			printf("##\n");
 		}
 #endif
 
