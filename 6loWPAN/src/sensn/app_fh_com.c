@@ -59,7 +59,6 @@ ISR(USART0_RX_vect)
 
 void fh_com_looptask() {
 
-
 	if (uart_str_complete == 1) {
 		//Bearbeitung der Data-Link Befehle
 		command[0] = 0;
@@ -81,6 +80,7 @@ void fh_com_looptask() {
 		UART_PRINT("command: %s\r\nparaBuffer %s\r\n", command, paraBuffer);
 
 #ifdef COORDNODE
+		UART_PRINT("uhh");
 		if (strcmp(command, "#getdata") == 0) {
 			if (macIsChild(atoi(paraBuffer)) == false) {
 				UART_PRINT("Node nicht im Netzwerk\r\n");
@@ -101,9 +101,9 @@ void fh_com_looptask() {
 			for (i = 1; i < MAXNODES; i++) {
 				node = &nodes[i];
 
-				 if ((node->nodeType) == ENDDEVICE)
-				      {
-					printf(" shortaddr:%d,longaddr:%llu",i,node->nodeLongAddress);
+				if ((node->nodeType) == ENDDEVICE) {
+					printf(" shortaddr:%d,longaddr:%llu", i,
+							node->nodeLongAddress);
 				}
 			}
 		}
@@ -111,13 +111,10 @@ void fh_com_looptask() {
 
 		if (strcmp(command, "#getecho") == 0) {
 
-					if (macIsChild(atoi(paraBuffer)) == false) {
-						UART_PRINT("Node nicht im Netzwerk\r\n");
-					} else {
-						uint16_t addr = atoi(paraBuffer);
-						sendPing(addr, 1);
-					}
-				}
+			uint16_t addr = atoi(paraBuffer);
+			sendPing(addr, 1);
+
+		}
 		if (strcmp(command, "#getnodeaddress") == 0) {
 			printf("#address %d\n", macConfig.shortAddress);
 		}
