@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #Tue Apr 12 21:03:11 CEST 2011
+=======
+#Mon Apr 11 23:32:45 CEST 2011
+>>>>>>> c8121729d03a64bd1e3ed1d34ab3bcb59cd83cc6
 avrtarget/ClockFrequency=8000000
 avrtarget/ExtRAMSize=0
 avrtarget/ExtendedRAM=false
