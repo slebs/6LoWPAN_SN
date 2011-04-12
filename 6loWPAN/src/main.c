@@ -99,8 +99,9 @@ int main(void) {
 
 	// Setup clock speed
 	halSetupClock();
-	set_i2c_params();
-
+	if (NODETYPE != COORD) {
+		set_i2c_params();
+	}
 #if defined(UART_DEBUG) || defined(COMMUNICATION_UART)
 	//uart_init(19200);
 	//uart_init(115200);
@@ -125,7 +126,6 @@ int main(void) {
 
 	// Init sensor_network application
 	app_init();
-	macSetAlarm(1000, print_sensor_data);
 
 #if defined(ROUTERNODE) || defined(ENDNODE)
 	//check_io_components(); // is called via macSetAlarm() every 20 ms

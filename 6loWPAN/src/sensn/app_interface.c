@@ -63,7 +63,6 @@ void app_init() {
 
 #ifdef SENSORNETWORK
 	UART_PRINT("SENSORNETWORK defined\r\n");
-	i2c_init();
 #endif
 
 #ifdef APP_PERF
