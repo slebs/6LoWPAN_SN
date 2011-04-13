@@ -27,18 +27,30 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
     //---------------------------------------------------
     // Commands reveived from RF-Modul (Coordinator)
     //----------------------------------------------------
+    //beginn of data protocol 
     private static final String BODATA = "#BOData";
+    //end of data protocol 
     private static final String EODATA = "#EOData";
+    // beginn of node list
+    private static final String BONL = "#BONL";
+    // nodelistentry startswith
+    private static final String NODEENTRY = "#shortaddr";
+    // end of node list
+    private static final String EONL = "#EONL";
+    //response received after GETECHO
     private static final String ECHORESPONSE = "#pingresponse";
     //---------------------------------------------------
+    // states for implement protocol logic
     public static final int STATE_IDLE = 0;
     public static final int STATE_LISTENING = 1;
     public static final int STATE_LISTENING_NL = 2;
+    
     private SerielleSchnittstelle com;
     private String strR;
     private int state;
     private ArrayList<String> dataString = new ArrayList<String>();
     private ArrayList<String> nodes = new ArrayList<String>();
+    private int connectedNode;
 
     /** Creates new form MainFrame */
     public MainFrame() {
@@ -70,46 +82,29 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jbtnGetData = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jListNodes = new javax.swing.JList();
-        jbtnGetEcho = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jlblConnected = new javax.swing.JLabel();
-        jlblConnectedNA = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jcbCom = new javax.swing.JComboBox();
         jcbBaud = new javax.swing.JComboBox();
         jtxtSend = new javax.swing.JTextField();
         jbtnSend = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jListNodes = new javax.swing.JList();
+        jLabel1 = new javax.swing.JLabel();
+        jbtnReloadNodeList = new javax.swing.JButton();
+        jbtnGetData = new javax.swing.JButton();
+        jbtnGetEcho = new javax.swing.JButton();
+        jbtnSetTime = new javax.swing.JButton();
+        jbtnGetTime = new javax.swing.JButton();
+        jbtnGetIntervall = new javax.swing.JButton();
+        jbtnSetIntervall = new javax.swing.JButton();
+        jlblConnected = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtxtOut = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jbtnGetData.setText("getdata");
-        jbtnGetData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnGetDataActionPerformed(evt);
-            }
-        });
-
-        jScrollPane1.setViewportView(jListNodes);
-
-        jbtnGetEcho.setText("getecho");
-        jbtnGetEcho.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnGetEchoActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Nodes");
-
-        jLabel2.setText("UART Output");
-
-        jlblConnected.setText("disconnected:");
 
         jButton1.setText("Connect");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -127,6 +122,93 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
             }
         });
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jScrollPane1.setViewportView(jListNodes);
+
+        jLabel1.setText("Nodes");
+
+        jbtnReloadNodeList.setText("reload nodes");
+        jbtnReloadNodeList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnReloadNodeListActionPerformed(evt);
+            }
+        });
+
+        jbtnGetData.setText("getdata");
+        jbtnGetData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnGetDataActionPerformed(evt);
+            }
+        });
+
+        jbtnGetEcho.setText("getecho");
+        jbtnGetEcho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnGetEchoActionPerformed(evt);
+            }
+        });
+
+        jbtnSetTime.setText("settime");
+
+        jbtnGetTime.setText("gettime");
+
+        jbtnGetIntervall.setText("getintervall");
+
+        jbtnSetIntervall.setText("setintervall");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbtnGetIntervall, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                    .addComponent(jbtnGetData, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                    .addComponent(jbtnReloadNodeList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbtnGetEcho, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                    .addComponent(jbtnSetTime, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                    .addComponent(jbtnGetTime, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                    .addComponent(jbtnSetIntervall, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jbtnGetData, jbtnGetEcho, jbtnReloadNodeList});
+
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jbtnSetIntervall)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnGetIntervall)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnGetTime)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnSetTime)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnGetEcho)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnGetData)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnReloadNodeList))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jlblConnected.setText("disconnected:");
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Output"));
+
         jtxtOut.setColumns(20);
         jtxtOut.setRows(5);
         jScrollPane2.setViewportView(jtxtOut);
@@ -138,6 +220,27 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
             }
         });
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,60 +249,41 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jlblConnectedNA, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlblConnected, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbtnGetData, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                            .addComponent(jbtnGetEcho, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 377, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jtxtSend, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnSend, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jlblConnected, javax.swing.GroupLayout.DEFAULT_SIZE, 979, Short.MAX_VALUE)
+                        .addGap(24, 24, 24))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jtxtSend, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbtnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jcbBaud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jcbCom, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jcbCom, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
-                .addContainerGap())
+                        .addComponent(jButton1)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jlblConnected)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jlblConnectedNA, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
-                        .addComponent(jbtnGetData)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbtnGetEcho))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jcbCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbBaud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtxtSend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnSend))
+                    .addComponent(jbtnSend)
+                    .addComponent(jcbBaud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlblConnected)
                 .addContainerGap())
         );
 
@@ -209,20 +293,22 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (com != null) {
             com.removeStringListener(this);
-            System.out.println("1");
             com.disconnect();
-            System.out.println("1");
 
         } else {
-            System.out.println("2");
-            com = new SerielleSchnittstelle((String) jcbCom.getSelectedItem(), Integer.parseInt(jcbBaud.getSelectedItem().toString()), 8, 1, 0);
-            com.addStringListener(this);
-            com.setStringDelimiter(SerielleSchnittstelle.DELIMITER_LF);
+            try {
+                com = new SerielleSchnittstelle((String) jcbCom.getSelectedItem(), Integer.parseInt(jcbBaud.getSelectedItem().toString()), 8, 1, 0);
+                com.addStringListener(this);
+                com.setStringDelimiter(SerielleSchnittstelle.DELIMITER_LF);
+                sendCommand(COMMAND_GETNODES, 0);
+                sendCommand(COMMAND_GETCONNECTEDNODE, 0);
+                jlblConnected.setText("Connected to: shortAddress: " + connectedNode);
+            } catch (Exception ex) {
+                jlblConnected.setText("unable to connect");
+            }
+
         }
-        System.out.println("3");
-        com.setPortName((String) jcbCom.getSelectedItem());
-        com.setBaudRate(Integer.parseInt(jcbBaud.getSelectedItem().toString()));
-        sendCommand(COMMAND_GETNODES, 0);
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -250,6 +336,10 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         jtxtOut.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jbtnReloadNodeListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReloadNodeListActionPerformed
+        
+    }//GEN-LAST:event_jbtnReloadNodeListActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,36 +409,43 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
             state = STATE_IDLE;
         }
 
-
-        if (strR.startsWith("#nodelist")) {
+        if (strR.startsWith("#address")) {
+            connectedNode = Integer.parseInt(strR.split(" ")[1]);
+        }
+        if (strR.startsWith(BONL)) {
             state = STATE_LISTENING_NL;
         }
-        if (strR.startsWith("#shortaddr:") && state == STATE_LISTENING_NL) {
+        if (strR.startsWith(NODEENTRY) && state == STATE_LISTENING_NL) {
             nodes.add(strR.substring(11));
         }
-        if (strR.startsWith("##")) {
+        if (strR.startsWith(EONL)) {
             state = STATE_IDLE;
         }
         jListNodes.setListData(nodes.toArray());
         jtxtOut.append(strR);
-        jtxtOut.append("\n");
+        jtxtOut.append("\r\n");
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JList jListNodes;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbtnGetData;
     private javax.swing.JButton jbtnGetEcho;
+    private javax.swing.JButton jbtnGetIntervall;
+    private javax.swing.JButton jbtnGetTime;
+    private javax.swing.JButton jbtnReloadNodeList;
     private javax.swing.JButton jbtnSend;
+    private javax.swing.JButton jbtnSetIntervall;
+    private javax.swing.JButton jbtnSetTime;
     private javax.swing.JComboBox jcbBaud;
     private javax.swing.JComboBox jcbCom;
     private javax.swing.JLabel jlblConnected;
-    private javax.swing.JLabel jlblConnectedNA;
     private javax.swing.JTextArea jtxtOut;
     private javax.swing.JTextField jtxtSend;
     // End of variables declaration//GEN-END:variables
