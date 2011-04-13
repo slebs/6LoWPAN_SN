@@ -3,6 +3,7 @@ package GUI;
 import at.htlklu.elektronik.schnittstellen.SerielleSchnittstelle;
 import at.htlklu.elektronik.schnittstellen.StringEvent;
 import at.htlklu.elektronik.schnittstellen.StringListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,7 +83,7 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jbtnConnect = new javax.swing.JButton();
         jcbCom = new javax.swing.JComboBox();
         jcbBaud = new javax.swing.JComboBox();
         jtxtSend = new javax.swing.JTextField();
@@ -102,14 +103,13 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtxtOut = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Connect");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbtnConnect.setText("Connect");
+        jbtnConnect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbtnConnectActionPerformed(evt);
             }
         });
 
@@ -210,15 +210,17 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Output"));
 
         jtxtOut.setColumns(20);
+        jtxtOut.setEditable(false);
+        jtxtOut.setLineWrap(true);
         jtxtOut.setRows(5);
-        jScrollPane2.setViewportView(jtxtOut);
-
-        jButton2.setText("clear");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        jtxtOut.setAutoscrolls(true);
+        jtxtOut.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jtxtOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtxtOutMouseClicked(evt);
             }
         });
+        jScrollPane2.setViewportView(jtxtOut);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -226,18 +228,14 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -265,7 +263,7 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jcbCom, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(jbtnConnect)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -281,7 +279,7 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
                     .addComponent(jbtnSend)
                     .addComponent(jcbBaud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcbCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jbtnConnect))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlblConnected)
                 .addContainerGap())
@@ -290,7 +288,7 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbtnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnConnectActionPerformed
         if (com != null) {
             com.removeStringListener(this);
             com.disconnect();
@@ -310,7 +308,7 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
         }
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbtnConnectActionPerformed
 
     private void jbtnGetDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGetDataActionPerformed
         if (com.isConnected()) {
@@ -333,13 +331,17 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
         }
     }//GEN-LAST:event_jbtnGetEchoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jtxtOut.setText("");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jbtnReloadNodeListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReloadNodeListActionPerformed
+        nodes.clear();
+        sendCommand(COMMAND_GETNODES, 0);
         
     }//GEN-LAST:event_jbtnReloadNodeListActionPerformed
+
+    private void jtxtOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtxtOutMouseClicked
+        if(evt.getButton()== MouseEvent.BUTTON3){
+            jtxtOut.setText("");
+        }
+    }//GEN-LAST:event_jtxtOutMouseClicked
 
     /**
      * @param args the command line arguments
@@ -399,10 +401,8 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
         strR = se.getStringReceived();
         if (strR.startsWith(BODATA)) {
             state = STATE_LISTENING;
-            System.out.println("got BODATA");
         }
         if (strR.startsWith(EODATA)) {
-            System.out.println("got EODATA");
         }
 
         if (state == STATE_LISTENING) {
@@ -416,7 +416,7 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
             state = STATE_LISTENING_NL;
         }
         if (strR.startsWith(NODEENTRY) && state == STATE_LISTENING_NL) {
-            nodes.add(strR.substring(11));
+            nodes.add(strR.substring(11).split(" ")[0]);
         }
         if (strR.startsWith(EONL)) {
             state = STATE_IDLE;
@@ -424,17 +424,17 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
         jListNodes.setListData(nodes.toArray());
         jtxtOut.append(strR);
         jtxtOut.append("\r\n");
+        jtxtOut.setCaretPosition(jtxtOut.getDocument().getLength());
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList jListNodes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbtnConnect;
     private javax.swing.JButton jbtnGetData;
     private javax.swing.JButton jbtnGetEcho;
     private javax.swing.JButton jbtnGetIntervall;
