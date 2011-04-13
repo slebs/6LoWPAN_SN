@@ -93,15 +93,18 @@ void fh_com_looptask() {
 			associatedNodes_t* node;
 
 			uint8_t i;
-			printf("#nodelist\n");
+			printf("#BONL\r\n");
 			for (i = 1; i < MAXNODES; i++) {
 				node = &nodes[i];
 
 				if ((node->nodeType) == ENDDEVICE) {
-					printf("#shortaddr:%d\n", i);
+					// fixme
+					//printf("#shortaddr:%d,#longaddr:%llu\r\n", i, node->nodeLongAddress);
+					printf("#shortaddr:%d #longaddr:%llx\r\n", i,
+							0x0012f04182f4);
 				}
 			}
-			printf("##\n");
+			printf("#EONL\r\n");
 		}
 #endif
 
@@ -114,9 +117,31 @@ void fh_com_looptask() {
 		if (strcmp(command, "#getnodeaddress") == 0) {
 			printf("#address %d\n", macConfig.shortAddress);
 		}
+
+		if (strcmp(command, "#getintervall") == 0) {
+
+			//TODO implement getintervall
+
+		}
+		if (strcmp(command, "#setintervall") == 0) {
+
+			//TODO implement setintervall
+
+		}
+		if (strcmp(command, "#gettime") == 0) {
+
+					//TODO implement gettime
+
+				}
+		if (strcmp(command, "#settime") == 0) {
+
+					//TODO implement settime
+
+				}
 	}
 
 }
+
 /*
  * send data request
  * coord --> node (addr)
@@ -158,5 +183,5 @@ void app_fh_com_process_data_res(uint8_t* pUDPpacket) {
 	SN_data_frame_t * frame = (SN_data_frame_t *) pUDPpacket;
 	payload = frame->payload;
 	payload[frame->length] = '\0';
-	printf("#BOData\n%s\n#EOData\n", payload);
+	printf("#BOData\r\n%s\n#EOData\r\n", payload);
 }
