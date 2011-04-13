@@ -228,7 +228,7 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -252,10 +252,10 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlblConnected, javax.swing.GroupLayout.DEFAULT_SIZE, 979, Short.MAX_VALUE)
+                        .addComponent(jlblConnected, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
                         .addGap(24, 24, 24))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jtxtSend, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                        .addComponent(jtxtSend, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbtnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
