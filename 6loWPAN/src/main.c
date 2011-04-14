@@ -100,6 +100,7 @@ int main(void) {
 	// Setup clock speed
 	halSetupClock();
 	if (NODETYPE != COORD) {
+#ifndef Dummie
 		set_i2c_params();
 	}
 #if defined(UART_DEBUG) || defined(COMMUNICATION_UART)

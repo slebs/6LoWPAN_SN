@@ -45,7 +45,6 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
     public static final int STATE_IDLE = 0;
     public static final int STATE_LISTENING = 1;
     public static final int STATE_LISTENING_NL = 2;
-    
     private SerielleSchnittstelle com;
     private String strR;
     private int state;
@@ -67,6 +66,14 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
+
+        getRootPane().setDefaultButton(jbtnSend);
+
+        jbtnGetIntervall.setVisible(false);
+        jbtnSetIntervall.setVisible(false);
+        jbtnGetTime.setVisible(false);
+        jbtnSetTime.setVisible(false);
+
         ArrayList<String> ports = SerielleSchnittstelle.listPorts();
         for (int i = 0; i < ports.size(); i++) {
             jcbCom.addItem(ports.get(i));
@@ -332,13 +339,12 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
     }//GEN-LAST:event_jbtnGetEchoActionPerformed
 
     private void jbtnReloadNodeListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReloadNodeListActionPerformed
-        nodes.clear();
         sendCommand(COMMAND_GETNODES, 0);
-        
+
     }//GEN-LAST:event_jbtnReloadNodeListActionPerformed
 
     private void jtxtOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtxtOutMouseClicked
-        if(evt.getButton()== MouseEvent.BUTTON3){
+        if (evt.getButton() == MouseEvent.BUTTON3) {
             jtxtOut.setText("");
         }
     }//GEN-LAST:event_jtxtOutMouseClicked
@@ -365,6 +371,7 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
                     sendString_d(GETECHO + " " + nodeAddr);
                     break;
                 case COMMAND_GETNODES:
+                    nodes.clear();
                     sendString_d(GETNODES);
                     break;
                 case COMMAND_GETCONNECTEDNODE:
@@ -420,6 +427,9 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
         }
         if (strR.startsWith(EONL)) {
             state = STATE_IDLE;
+        }
+        if (strR.startsWith("Associated")) {
+            sendCommand(COMMAND_GETNODES, 0);
         }
         jListNodes.setListData(nodes.toArray());
         jtxtOut.append(strR);
