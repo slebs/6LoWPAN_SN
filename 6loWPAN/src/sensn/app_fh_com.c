@@ -4,6 +4,10 @@
  *  Created on: 19.03.2011
  *      Author: Kevin
  */
+
+//------------------------------------------------------------------------
+//|                                INCLUDES                              |
+//------------------------------------------------------------------------
 #include <avr/io.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -19,9 +23,11 @@
 #include "../../inc/sensn/commands.h"
 #include "../../inc/sensn/app_interface.h"
 
-//------------------------------Initialisierungen--------------------------------------
+//------------------------------------------------------------------------
+//|                                  INITS                               |
+//------------------------------------------------------------------------
 
-static volatile uint8_t uart_str_complete = 0; // 1 .. String komplett empfangen
+static volatile uint8_t uart_str_complete = 0; // 1 -> if string complete
 static volatile uint8_t uart_str_count = 0;
 static unsigned volatile char uart_string[UART_MAXSTRLEN];
 
@@ -30,42 +36,47 @@ unsigned char raute_pos;
 char command[20];
 char paraBuffer[80];
 
-//------------------------------RX Interrupt Service Routine---------------------------
+//------------------------------------------------------------------------
+//|                      RX INTERRUPT SERVICE ROUTINE                    |
+//------------------------------------------------------------------------
 ISR(USART0_RX_vect)
 {
-	//	rxBuffer[rxPtr++] = (unsigned char) UDR0;
-	//	printf("---Char received---\n");
+
 	unsigned char nextChar;
 
-	// Daten aus dem Puffer lesen
+	// read data form rx buffer
 	nextChar = UDR0;
-	if (uart_str_complete == 0) { // wenn uart_string gerade in Verwendung, neues Zeichen verwerfen
+	// if uart-string in useage, discard new char
+	if (uart_str_complete == 0) {
 
-		// Daten werden erst in string geschrieben, wenn nicht String-Ende/max Zeichenl�nge erreicht ist/string gerade verarbeitet wird
+		// write data to string
+		// if end of string or max of character are not reached
+		// and string is not in use
 		if (nextChar != '\n' && nextChar != '\r' && uart_str_count
 				< UART_MAXSTRLEN - 1) {
 			uart_string[uart_str_count] = nextChar;
 			uart_str_count++;
-			//			printf("---Char received---\n");
 		} else {
 			uart_string[uart_str_count] = '\0';
 			uart_str_count = 0;
 			uart_str_complete = 1;
-			// UART_PRINT("%s ---  %d\n", uart_string, uart_str_complete);
 		}
 	}
 }
-//-------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------
+//|                               SUBROUTINES                            |
+//------------------------------------------------------------------------
 
 void fh_com_looptask() {
 
 	if (uart_str_complete == 1) {
-		//Bearbeitung der Data-Link Befehle
+		//process data-link commands
 		command[0] = 0;
 		paraBuffer[0] = 0;
 		uart_str_complete = 0;
 
-		//	Mit UART-String
+		//find the position of the rhombus in the string
 		raute_pos = (unsigned char) strlen(
 				(char*) strstr((char *) uart_string, "#")) - strlen(
 				(char*) uart_string);
@@ -75,11 +86,13 @@ void fh_com_looptask() {
 		command[19] = 0;
 		paraBuffer[19] = 0;
 
+		//separate uart sting into command and paraBuffer
 		sscanf((char*) &uart_string[raute_pos], "%s %s\n", command, paraBuffer);
 
 		UART_PRINT("command: %s\r\nparaBuffer %s\r\n", command, paraBuffer);
 
 #ifdef COORDNODE
+		//handle different commands for different procedures
 		if (strcmp(command, "#getdata") == 0) {
 			if (macIsChild(atoi(paraBuffer)) == false) {
 				UART_PRINT("Node nicht im Netzwerk\r\n");
