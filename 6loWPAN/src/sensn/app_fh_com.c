@@ -100,8 +100,8 @@ void fh_com_looptask() {
 				if ((node->nodeType) == ENDDEVICE) {
 					// fixme
 					//printf("#shortaddr:%d,#longaddr:%llu\r\n", i, node->nodeLongAddress);
-					printf("#shortaddr:%d #longaddr:%llx\r\n", i,
-							0x0012f04182f4);
+					printf("#shortaddr:%d #longaddr:%s\r\n", i,
+							"00:12:f0:41:82:f4");
 				}
 			}
 			printf("#EONL\r\n");
