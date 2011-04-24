@@ -2,12 +2,9 @@
  * twi_interface.c
  *
  *  Created on: Mar 22, 2011
- *      Author: simon
+ *      Author: Kevin
  */
 
-/*
- * TODO Pluch to implement TWI interface
- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

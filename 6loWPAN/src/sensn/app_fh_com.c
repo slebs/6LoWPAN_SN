@@ -130,14 +130,14 @@ void fh_com_looptask() {
 		}
 		if (strcmp(command, "#gettime") == 0) {
 
-					//TODO implement gettime
+			//TODO implement gettime
 
-				}
+		}
 		if (strcmp(command, "#settime") == 0) {
 
-					//TODO implement settime
+			//TODO implement settime
 
-				}
+		}
 	}
 
 }

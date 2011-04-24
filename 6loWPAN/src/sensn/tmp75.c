@@ -4,6 +4,8 @@
 // for example, 
 // tmp75_write_config(TMP75_12BITS);
 // 
+// modified by kevin
+//
 
 #include "../../inc/sensn/i2cmaster.h"
 #include "../../inc/deRFaddon/uart.h"
