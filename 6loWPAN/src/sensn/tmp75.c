@@ -18,7 +18,7 @@
 //|                                  INITS                               |
 //------------------------------------------------------------------------
 
-#define TMP75_ADDR 0x92
+#define TMP275_ADDR 0x92
 
 //------------------------------------------------------------------------
 //|                               SUBROUTINES                            |
@@ -29,9 +29,9 @@ uint8_t tmp75_read_config(void)
 { 
 	uint8_t conf;
 
-	i2c_start_wait(TMP75_ADDR+I2C_WRITE);
+	i2c_start_wait(TMP275_ADDR+I2C_WRITE);
 	i2c_write(0x01); // address config register
-	i2c_rep_start(TMP75_ADDR + I2C_READ);
+	i2c_rep_start(TMP275_ADDR + I2C_READ);
 	conf = i2c_readNak();
 	i2c_stop();
 	return(conf);
@@ -40,7 +40,7 @@ uint8_t tmp75_read_config(void)
 // write to tmp75 config register
 void tmp75_write_config(uint8_t conf)
 { 
-	i2c_start_wait(TMP75_ADDR+I2C_WRITE);
+	i2c_start_wait(TMP275_ADDR+I2C_WRITE);
 	i2c_write(0x01); // address config register
 	i2c_write(conf);
 	i2c_stop();
@@ -52,9 +52,9 @@ int16_t tmp75_read_temp(void)
 
 	uint8_t tmphi, tmplo;
 	int16_t temp;
-	i2c_start_wait(TMP75_ADDR+I2C_WRITE);
+	i2c_start_wait(TMP275_ADDR+I2C_WRITE);
 	i2c_write(0x00); // address Temperature register
-	i2c_rep_start(TMP75_ADDR + I2C_READ);
+	i2c_rep_start(TMP275_ADDR + I2C_READ);
 	tmphi = i2c_readAck();
 	tmplo = i2c_readNak();
 	i2c_stop();
@@ -67,9 +67,9 @@ int16_t tmp75_read_tlow(void)
 { 
 	uint8_t tmphi, tmplo;
 	uint16_t temp;
-	i2c_start_wait(TMP75_ADDR+I2C_WRITE);
+	i2c_start_wait(TMP275_ADDR+I2C_WRITE);
 	i2c_write(0x02); // address TempLow register
-	i2c_rep_start(TMP75_ADDR + I2C_READ);
+	i2c_rep_start(TMP275_ADDR + I2C_READ);
 	tmphi = i2c_readAck();
 	tmplo = i2c_readNak();
 	i2c_stop();
@@ -82,9 +82,9 @@ int16_t tmp75_read_thi(void)
 { 
 	uint8_t tmphi, tmplo;
 	uint16_t temp;
-	i2c_start_wait(TMP75_ADDR+I2C_WRITE);
+	i2c_start_wait(TMP275_ADDR+I2C_WRITE);
 	i2c_write(0x03); // address TempHigh register
-	i2c_rep_start(TMP75_ADDR + I2C_READ);
+	i2c_rep_start(TMP275_ADDR + I2C_READ);
 	tmphi = i2c_readAck();
 	tmplo = i2c_readNak();
 	i2c_stop();
@@ -96,7 +96,7 @@ int16_t tmp75_read_thi(void)
 void tmp75_write_tlow(int16_t tlow)
 { 
 	tlow <<= 4;
-	i2c_start_wait(TMP75_ADDR+I2C_WRITE);
+	i2c_start_wait(TMP275_ADDR+I2C_WRITE);
 	i2c_write(0x02); // address TempLow register
 	i2c_write(tlow>>8);	// write high byte
 	i2c_write(tlow&0x00ff); // write low byte
@@ -107,7 +107,7 @@ void tmp75_write_tlow(int16_t tlow)
 void tmp75_write_thi(int16_t thi)
 { 
 	thi <<= 4;
-	i2c_start_wait(TMP75_ADDR+I2C_WRITE);
+	i2c_start_wait(TMP275_ADDR+I2C_WRITE);
 	i2c_write(0x03); // address TempHigh register
 	i2c_write(thi>>8);	// write high byte
 	i2c_write(thi&0x00ff); // write low byte
