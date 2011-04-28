@@ -36,9 +36,12 @@ char* get_sensor_data() {
 				macConfig.shortAddress, 11.11);
 		return rv;
 	} else {
-		sprintf(rv, "Sensor Data from node: %d : Temp: %2.2f",
-				macConfig.shortAddress,
-				((float) (tmp75_read_temp() / 16.0) - 1.5));
+//		sprintf(rv, "Sensor Data from node: %d : Temp: %2.2f",
+//				macConfig.shortAddress,
+//				((float) (tmp75_read_temp() / 16.0) - 1.5));
+
+		sprintf(rv, "Dummie Data from node: %d : Temp: %2.2f",
+						macConfig.shortAddress, 11.11);
 		return rv;
 	}
 }

@@ -36,6 +36,7 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
     private static final String BONL = "#BONL";
     // nodelistentry startswith
     private static final String NODEENTRY = "#shortaddr";
+    // private static final String NODEENTRYRO = "#shortaddrRo";
     // end of node list
     private static final String EONL = "#EONL";
     //response received after GETECHO
@@ -112,7 +113,7 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
         jtxtOut = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Client_modul Testanwendung");
+        setTitle("Client-Modul Testanwendung");
 
         jbtnConnect.setText("Connect");
         jbtnConnect.addActionListener(new java.awt.event.ActionListener() {
@@ -430,6 +431,7 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
         if (strR.startsWith(NODEENTRY) && state == STATE_LISTENING_NL) {
             nodes.add(strR.substring(11).split(" ")[0]);
         }
+       
         if (strR.startsWith(EONL)) {
             state = STATE_IDLE;
         }

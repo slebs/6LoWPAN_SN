@@ -94,11 +94,12 @@ void fh_com_looptask() {
 #ifdef COORDNODE
 		//handle different commands for different procedures
 		if (strcmp(command, "#getdata") == 0) {
-			if (macIsChild(atoi(paraBuffer)) == false) {
-				UART_PRINT("Node nicht im Netzwerk\r\n");
-			} else {
-				send_SN_data_request(atoi(paraBuffer));
-			}
+			send_SN_data_request(atoi(paraBuffer));
+//			if (macIsChild(atoi(paraBuffer)) == false) {
+//				UART_PRINT("Node nicht im Netzwerk\r\n");
+//			} else {
+//				send_SN_data_request(atoi(paraBuffer));
+//			}
 		}
 
 		if (strcmp(command, "#getnodes") == 0) {
@@ -113,8 +114,12 @@ void fh_com_looptask() {
 				if ((node->nodeType) == ENDDEVICE) {
 					// fixme
 					//printf("#shortaddr:%d,#longaddr:%llu\r\n", i, node->nodeLongAddress);
-					printf("#shortaddr:%d #longaddr:%s\r\n", i,
-							"00:12:f0:41:82:f4");
+					//printf("#shortaddr:%d #longaddr:%s\r\n", i,
+					//		"00:50:C2:FF:FF:18:86:6A");
+					printf("#shortaddr:%d\r\n", i);
+				}
+				if( (node->nodeType)== ROUTER){
+					printf("#shortaddr:%d\r\n", i);
 				}
 			}
 			printf("#EONL\r\n");

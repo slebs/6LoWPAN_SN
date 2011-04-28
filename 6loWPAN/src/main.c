@@ -106,9 +106,9 @@ int main(void) {
 	uart_init(9600);
 #endif
 
-	if ((NODETYPE == ENDDEVICE) || (NODETYPE == ROUTER)) {
-			set_i2c_params();
-		}
+	if (NODETYPE == ENDDEVICE){
+		//set_i2c_params();
+	}
 
 	// init HDLC layer (frame tagging)
 	hdlc_init();
@@ -131,15 +131,15 @@ int main(void) {
 
 #if defined(ROUTERNODE) || defined(ENDNODE)
 	//check_io_components(); // is called via macSetAlarm() every 20 ms
-	check_temp_and_vcc(); // is called via macSetAlarm() every 5000 ms
+	//check_temp_and_vcc(); // is called via macSetAlarm() every 5000 ms
 
 #ifdef STATUS_DEBUG
-	evaluate_status_request(); // is called via macSetAlarm() every 10000ms
+	//evaluate_status_request(); // is called via macSetAlarm() every 10000ms
 #endif
 
 #endif // ROUTERNODE || ENDNODE
 #ifdef COORDNODE
-	send_quality_request(); // is called via macSetAlarm() every 5000 ms
+	//send_quality_request(); // is called via macSetAlarm() every 5000 ms
 #endif
 
 #ifdef STATUS_DEBUG

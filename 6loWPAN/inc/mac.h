@@ -286,6 +286,7 @@ extern char debugStr[DEBUG * 40];
 #define COORD     1  ///< Coordinator node
 #define ROUTER    2  ///< Router node
 #define ENDDEVICE 3  ///< End node
+#define DUMMIE	  4  ///< Dummie node
 /** @}
     @}*/
 
@@ -338,7 +339,9 @@ extern char debugStr[DEBUG * 40];
 #ifdef ROUTERNODE
   #define NODETYPE ROUTER
 #endif
-
+#ifdef DUMMIENODE
+#define NOI2C DUMMIE
+#endif
 
 #ifndef NODETYPE
 // Warning - NODETYPE must be defined

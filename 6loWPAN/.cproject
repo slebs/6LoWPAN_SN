@@ -3203,7 +3203,8 @@
 								<option id="de.innot.avreclipse.compiler.option.optimize.1636553535" name="Optimization Level" superClass="de.innot.avreclipse.compiler.option.optimize" value="de.innot.avreclipse.compiler.optimize.size" valueType="enumerated"/>
 								<option id="de.innot.avreclipse.compiler.option.def.1335910400" name="Define Syms (-D)" superClass="de.innot.avreclipse.compiler.option.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="APP_PERF=1"/>
-									<listOptionValue builtIn="false" value="Dummie"/>
+									<listOptionValue builtIn="false" value="DUMMIENODE"/>
+									<listOptionValue builtIn="false" value="ENDNODE"/>
 									<listOptionValue builtIn="false" value="SENSORNETWORK"/>
 									<listOptionValue builtIn="false" value="ENDNODE"/>
 									<listOptionValue builtIn="false" value="F_CPU=8000000UL"/>
