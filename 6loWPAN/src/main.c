@@ -99,15 +99,16 @@ int main(void) {
 
 	// Setup clock speed
 	halSetupClock();
-	if (NODETYPE != COORD) {
-#ifndef Dummie
-		set_i2c_params();
-	}
+
 #if defined(UART_DEBUG) || defined(COMMUNICATION_UART)
 	//uart_init(19200);
 	//uart_init(115200);
 	uart_init(9600);
 #endif
+
+	if ((NODETYPE == ENDDEVICE) || (NODETYPE == ROUTER)) {
+			set_i2c_params();
+		}
 
 	// init HDLC layer (frame tagging)
 	hdlc_init();

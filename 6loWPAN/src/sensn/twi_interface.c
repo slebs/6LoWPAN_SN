@@ -22,7 +22,6 @@
 
 static char rv[MAX_PAYLOAD_LENGTH_SN];
 
-
 //------------------------------------------------------------------------
 //|                               SUBROUTINES                            |
 //------------------------------------------------------------------------
@@ -32,14 +31,16 @@ static char rv[MAX_PAYLOAD_LENGTH_SN];
  * TODO: @simon define format for sensor data
  */
 char* get_sensor_data() {
-#ifdef Dummie
-	sprintf(rv, "Dummie Data from node: %d : Temp: %2.2f",
-				macConfig.shortAddress, 21.12));
-#else
-	sprintf(rv, "Sensor Data from node: %d : Temp: %2.2f",
-			macConfig.shortAddress, ((float) tmp75_read_temp() / 16.0));
-	return rv;
-
+	if ((NODETYPE == COORD) || (NODETYPE == DUMMIE)) {
+		sprintf(rv, "Dummie Data from node: %d : Temp: %2.2f",
+				macConfig.shortAddress, 11.11);
+		return rv;
+	} else {
+		sprintf(rv, "Sensor Data from node: %d : Temp: %2.2f",
+				macConfig.shortAddress,
+				((float) (tmp75_read_temp() / 16.0) - 1.5));
+		return rv;
+	}
 }
 
 /*
