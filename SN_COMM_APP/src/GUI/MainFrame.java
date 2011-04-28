@@ -69,10 +69,10 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
 
         getRootPane().setDefaultButton(jbtnSend);
 
-      //  jbtnGetIntervall.setVisible(false);
-      //  jbtnSetIntervall.setVisible(false);
-      //  jbtnGetTime.setVisible(false);
-      //  jbtnSetTime.setVisible(false);
+        jbtnGetIntervall.setVisible(false);
+        jbtnSetIntervall.setVisible(false);
+        jbtnGetTime.setVisible(false);
+        jbtnSetTime.setVisible(false);
 
         ArrayList<String> ports = SerielleSchnittstelle.listPorts();
         for (int i = 0; i < ports.size(); i++) {
@@ -112,6 +112,7 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
         jtxtOut = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Client_modul Testanwendung");
 
         jbtnConnect.setText("Connect");
         jbtnConnect.addActionListener(new java.awt.event.ActionListener() {
@@ -175,13 +176,13 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbtnGetIntervall, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                    .addComponent(jbtnGetData, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                    .addComponent(jbtnGetIntervall, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                    .addComponent(jbtnGetData, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                     .addComponent(jbtnReloadNodeList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jbtnGetEcho, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                    .addComponent(jbtnSetTime, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                    .addComponent(jbtnGetTime, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                    .addComponent(jbtnSetIntervall, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+                    .addComponent(jbtnGetEcho, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                    .addComponent(jbtnSetTime, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                    .addComponent(jbtnGetTime, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                    .addComponent(jbtnSetIntervall, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -235,14 +236,14 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -259,7 +260,7 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlblConnected, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+                        .addComponent(jlblConnected, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
                         .addGap(24, 24, 24))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jtxtSend, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
@@ -318,11 +319,15 @@ public class MainFrame extends javax.swing.JFrame implements StringListener {
     }//GEN-LAST:event_jbtnConnectActionPerformed
 
     private void jbtnGetDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGetDataActionPerformed
-        if (com.isConnected()) {
+      
+        try{if (com.isConnected()) {
             System.out.println(Integer.parseInt(jListNodes.getSelectedValue().toString()));
             sendCommand(COMMAND_GETDATA, Integer.parseInt(jListNodes.getSelectedValue().toString()));
         } else {
             JOptionPane.showMessageDialog(this, "not connected");
+        }
+        }catch(NullPointerException ex){
+            JOptionPane.showMessageDialog(this, "Wählen Sie eine Node bevor Sie einen Befehl ausführen", "Failure", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbtnGetDataActionPerformed
 
